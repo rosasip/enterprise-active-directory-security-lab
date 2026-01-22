@@ -6,3 +6,14 @@
        src="https://github.com/user-attachments/assets/473de028-a937-4015-89aa-b294ea1b368e" />
 </div>
 
+
+
+## Install Active Directory Domain Services (AD DS):
+
+  Open Server Manager
+  
+  Add Roles and Features
+  
+  Select "Active Directory Domain Services"
+  
+  Complete installation and promote server to Domain Controller
