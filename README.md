@@ -8,7 +8,7 @@
 
 
 
-## Install Active Directory Domain Services (AD DS):
+### Install Active Directory Domain Services (AD DS):
 
   Open Server Manager
   
