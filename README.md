@@ -49,3 +49,78 @@ Departmental User Organization:
   - IT_Admins
   - Finance
   - Human_Resources
+
+
+
+## 2. Creating User Accounts - Identity & Access Management
+
+- Locate the Target Container:
+  - Select your LAB_Assets > Accounts OU.
+  - Select the specific department (e.g., IT_Admins or Finance).
+
+- Provision a New User:
+  - Right-click the departmental OU and select New > User.
+
+- Define Identity Attributes:
+ - Follow a standard naming convention for the User Logon Name (e.g., First Initial + Last Name).
+   - Example: * First Name: Marcus
+   - Last Name: Wright
+   - User Logon Name: mwright
+
+- Security & Password Configuration:
+  - Assign a temporary password that meets the domain's complexity requirements.
+  - Settings: Select "User must change password at next logon" (best practice) or "Password never expires" (common for lab service accounts).
+
+- Assign Professional Metadata:
+  - Once the user is created, right-click the account and select Properties.
+  - In the Description field, add their specific role (e.g., Senior Systems Engineer).
+  - Under the Organization tab, fill in the Job Title and Department.
+
+Batch Creation:
+
+Repeat the process to populate the Finance and Human_Resources OUs with at least two users each to test permissions later.
+
+Why this version is better:
+Metadata Focus: Real-world AD management relies heavily on the Organization and Description tabs for filtering and automation.
+
+Naming Conventions: Instead of just "jdoe," it explains the logic (First Initial + Last Name).
+
+Security Standards: It mentions the "change password at next logon" setting, which is a fundamental security step in any corporate environment.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
