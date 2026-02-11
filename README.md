@@ -15,7 +15,7 @@
 1. ** Set Up a Virtual Lab Environment:**
    - Use virtualization software like **VMware Workstation Pro**, **Hyper-V**, or **VirtualBox**.
    - Install **Windows Server 2022 (or 2025)** and configure it as a **Domain Controller**.
-   - Install a couple of Windows client machines (**Windows 11 Pro**) and join them to the domain.
+   - Install a couple of Windows client machines (**Windows 11 Pro**) to join them to the domain.
 
 ## Activity: Infrastructure & OU Architecture
 
@@ -203,6 +203,110 @@ Objective: Assign a persistent identity to the Domain Controller to ensure relia
 4. **Verify Access from Client:**
    - On the Windows 11 machine, press `Win + R` and type `\\<Server-IP>\Data$`.
    - Confirm that users in the Finance group can see the files, while users from other departments (like HR) are denied access.
+</details>
+
+<details>
+<summary><h2>9. Map Network Drives via Group Policy</h2></summary>
+
+**Objective:** Automatically mount network shares as drive letters for users when they log in.
+
+1. **Initialize the Drive Mapping GPO:**
+   - In the **GPMC**, create a new GPO named **`GPO_Map_Finance_Drive`**.
+
+2. **Configure Drive Mapping Preferences:**
+   - Right-click the GPO and select **Edit**.
+   - Navigate to: **User Configuration > Preferences > Windows Settings > Drive Maps**.
+   - Right-click > **New > Mapped Drive**.
+   - **Action:** Select `Update`.
+   - **Location:** Enter the path to your share (e.g., `\\SVR-DC-01\Data$`).
+   - **Label as:** Enter a friendly name (e.g., `Finance Department`).
+   - **Drive Letter:** Assign a specific letter (e.g., `F:`).
+
+3. **Targeting & Linking:**
+   - **Link** the GPO to the **`LAB_Assets > Accounts > Finance`** OU.
+   - *Note: By linking here, only the Finance users will see this drive, keeping the workspace clean for other departments.*
+
+4. **Verify on Client:**
+   - On the Windows 11 machine, log in as a Finance user.
+   - Open **File Explorer > This PC**.
+   - Confirm the `F:` drive appears automatically. 
+   - If it doesn't appear, run `gpupdate /force` and log out/in.
+</details>
+
+<details>
+<summary><h2>10. Creating & Configuring Service Accounts</h2></summary>
+
+**Objective:** Provision a dedicated account for automated system processes or kiosk environments.
+
+1. **Locate the Service Account Container:**
+   - In **ADUC**, navigate to your **`LAB_Assets > Accounts`** OU.
+   - (Optional) Create a specific sub-OU named **`Service_Accounts`** to keep these separate from human users.
+
+2. **Provision the Account:**
+   - Right-click the OU > **New > User**.
+   - **Name:** Use a prefix to identify it as a service (e.g., `SVC_AutoLogin`).
+   - **Description:** Clearly state the purpose (e.g., `Account for Warehouse Kiosk Autologon`).
+
+3. **Security Hardening:**
+   - Assign a high-entropy (strong) password.
+   - **Settings:** Check **"User cannot change password"** and **"Password never expires"**.
+   - *Note: In a production environment, you would eventually move to Managed Service Accounts (gMSAs) for even better security.*
+
+4. **Assign Permissions:**
+   - Add the account to any specific **Security Groups** required for the task it performs. 
+   - Ensure it has the "Log on as a service" or "Log on locally" right if required by the application.
+
+5. **Configure Client Autologon (Sysinternals):**
+   - On the target Windows 11 client, download the **Microsoft Sysinternals Autologon** tool.
+   - Run `Autologon.exe`, enter the `SVC_AutoLogin` credentials, and the domain name.
+   - This encrypts the credentials in the registry, allowing the machine to bypass the login screen and go straight to the desktop after a reboot—ideal for dashboard monitors or kiosks.
+</details>
+
+
+<details>
+<summary><h2>11. Configuring Account Lockout Policy</h2></summary>
+
+**Objective:** Mitigate brute-force and dictionary attacks by automatically disabling accounts after multiple failed login attempts.
+
+1. **Initialize the Security GPO:**
+   - In the **GPMC**, create a new GPO named **`GPO_Account_Security_Policy`**.
+
+2. **Configure Lockout Thresholds:**
+   - Navigate to: **Computer Configuration > Policies > Windows Settings > Security Settings > Account Policies > Account Lockout Policy**.
+   - **Account lockout threshold:** Set to `5` invalid attempts. (This is a balance between security and user convenience).
+   - **Account lockout duration:** Set to `30 minutes`.
+   - **Reset account lockout counter after:** Set to `30 minutes`.
+
+3. **Linking & Inheritance:**
+   - **Important:** Account policies like these are typically linked at the **Domain Level** (the very top folder) because they are handled by the Domain Controller's security database. 
+
+4. **Testing the Policy:**
+   - On the Windows 11 client, attempt to log in with a valid username but a **wrong password** 5 times.
+   - Verify that the 6th attempt results in an "Account Locked" message.
+   - On the Server, open **ADUC**, find the user, and observe the "Unlock Account" checkbox in their properties.
+</details>
+
+<details>
+<summary><h2>Testing & Verification</h2></summary>
+
+**Objective:** Confirm that all configurations—Identity, Networking, and Policy—are functioning as intended.
+
+1. **Verify User Authentication:**
+   - Log on to a Windows 11 client machine using a newly created domain account (e.g., `mwright`).
+   - **Success Criteria:** The user profile is created successfully, and the desktop loads without "Temporary Profile" errors.
+
+2. **Audit Group Policy & Membership:**
+   - Open **Command Prompt** (as the user) and run: `gpresult /r`
+   - **Success Criteria:** - Under "Applied Group Policy Objects," you should see your custom GPOs (e.g., `GPO_Account_Security_Policy`).
+     - Under "The user is a part of the following security groups," you should see your `SG-` groups.
+
+3. **Validate Network Resource Access:**
+   - Open **File Explorer > This PC**.
+   - **Success Criteria:** The mapped network drive (e.g., `F:`) appears with the correct label. Double-click it to ensure you can create/read files based on your NTFS permissions.
+
+4. **Verify Account Lockout Logic:**
+   - Intentional Failure: Attempt to log in with a wrong password 5 times.
+   - **Success Criteria:** The 6th attempt should trigger a message stating the account is locked. Confirm you can unlock the user from the Domain Controller.
 </details>
 
 
