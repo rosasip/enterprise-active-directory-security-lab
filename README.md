@@ -82,7 +82,6 @@ Objective: Create logical containers to manage permissions and communication acr
 
 - Navigate to the Security Groups OU:
   - In ADUC, go to your LAB_Assets > Security_Groups container. (Centralizing groups here makes auditing much easier).
- 
 - Initialize a New Group:
   - Right-click inside the OU and select New > Group.  
 - Standardized Group Naming:
@@ -93,7 +92,8 @@ Objective: Create logical containers to manage permissions and communication acr
 - Assign Membership:
   - Right-click your new group, go to Properties > Members, and add the user accounts you created in the previous exercise.  
 
-
+4. Adding Users to Groups
+● Objective: Manage group memberships.
 
 
 
