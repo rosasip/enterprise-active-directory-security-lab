@@ -1,4 +1,4 @@
-# Basic Active Directory Setup Activity
+# Windows Server Home Lab: Active Directory, Networking, and File Sharing
 
 <div style="background: #f6f8fa; padding: 20px; border-radius: 6px; border: 1px solid #e1e4e8; max-width: 800px;">
   <img width="757" 
