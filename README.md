@@ -1,4 +1,4 @@
-# Windows Server Home Lab: Basic Active Directory, Networking, and File Sharing
+## Basic Active Directory, Networking, and File Sharing
 
 <div style="background: #f6f8fa; padding: 20px; border-radius: 6px; border: 1px solid #e1e4e8; max-width: 800px;">
   <img width="757" 
@@ -12,3 +12,9 @@
 - Windows Server 2025: 4 GB Memory, 60 GB Disk Space
 - Windows 11 Pro: 4 GB Memory, 64 GB Disk Space (Minimum)
 - Virtualization: VT-x (Intel) or AMD-V enabled in BIOS
+
+### Lab Setup
+1. Set Up a Virtual Lab Environment:
+- Use virtualization software like VMware Workstation Pro, Hyper-V, or VirtualBox.
+- Install Windows Server 2022 (or 2025) and configure it as a Domain Controller.
+- Install a couple of Windows client machines (Windows 11 Pro) and join them to the domain.
