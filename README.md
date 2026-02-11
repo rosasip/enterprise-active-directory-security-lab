@@ -1,4 +1,4 @@
-## Basic Active Directory, Networking, and File Sharing Project
+### Basic Active Directory, Networking, and File Sharing Project
 
 <div style="background: #f6f8fa; padding: 20px; border-radius: 6px; border: 1px solid #e1e4e8; max-width: 800px;">
   <img width="757" 
@@ -51,7 +51,6 @@ Departmental User Organization:
   - Human_Resources
 
 
-
  ## 2. Creating User Accounts - Identity & Access Management
 - Locate the Target Container:
   - Select your LAB_Assets > Accounts OU.
@@ -77,10 +76,7 @@ Departmental User Organization:
 
 💡 Professional Note: In a production environment, SysAdmins rarely create users manually. This process is typically automated using PowerShell scripts or Identity Management (IdM) systems to sync users from an HR database via a CSV file.
 
-
-
-
-
+## 3. Creating Groups
 
 
 
