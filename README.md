@@ -51,13 +51,9 @@
        - **`IT_Admins`**
        - **`Finance`**
        - **`Human_Resources`**
-
-
-
-
-
+       
 <details>
-<summary><h2>2. Creating User Accounts - Identity & Access Management</h2></summary>
+<summary><h2>2. Creating User Accounts</h2></summary>
 
 **Objective:** Provision domain user accounts with standardized naming conventions and attributes.
 
@@ -87,14 +83,9 @@
 > 💡 **Professional Note:** In a production environment, SysAdmins rarely create users manually. This process is typically automated using PowerShell scripts or Identity Management (IdM) systems to sync users from an HR database via a CSV file.
 
 </details>
-
-
-
-
-
-
-## 3. Security & Distribution Group Management
-Objective: Create logical containers to manage permissions and communication across the domain.
+<details> 
+ <summary><h2> 3. Creating Groups </h2></summary> 
+Objective: Security & Distribution Group Management
 
 - Navigate to the Security Groups OU:
   - In ADUC, go to your LAB_Assets > Security_Groups container. (Centralizing groups here makes auditing much easier).
@@ -107,8 +98,16 @@ Objective: Create logical containers to manage permissions and communication acr
   - Group Type: Select Security. (Note: Security groups are used for permissions (folders, printers), while Distribution groups are strictly for email lists.)
 - Assign Membership:
   - Right-click your new group, go to Properties > Members, and add the user accounts you created in the previous exercise.  
+</details>
 
-## 4. Adding Users to Groups
+
+<!-- 
+<details>
+<summary><h2> </h2></summary> 
+</details>
+-->
+<details>
+<summary><h2>4. Adding Users to Groups </h2></summary>  
 Objective: Delegate permissions by nesting user accounts into functional security groups.
   - Access User Identity Properties:
     - In ADUC, locate the user account you want to manage (e.g., in the Accounts > Finance OU).
@@ -118,6 +117,9 @@ Objective: Delegate permissions by nesting user accounts into functional securit
     - Click Add and type the name of the security group you created earlier (e.g., SG-Finance-Read-Only).
     - Click Check Names to validate the object, then click OK.
   - Verify the membership (Security Best Practice: Always assign permissions to Groups, not individual Users.)
+</details>
+
+
 
 ## 5. Configure Network settings for the Server
 Objective: Assign a persistent identity to the Domain Controller to ensure reliable connectivity for all domain clients.
