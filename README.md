@@ -131,7 +131,79 @@ Objective: Assign a persistent identity to the Domain Controller to ensure relia
     -   Open Command Prompt and run ipconfig /all to confirm the settings are applied and that the "DHCP Enabled" flag is now set to No.
 </details>
 
+<details>
+<summary><h2>6. Join Windows Client to the Domain</h2></summary>
 
+**Objective:** Connect the Windows 11 workstation to the Active Directory environment and verify user authentication.
+
+1. **Configure Client Network Settings:**
+   - Open **Network Connections** on the Windows 11 machine.
+   - Set the **Preferred DNS Server** to the IP address of your Domain Controller (e.g., `172.16.0.10`).
+   - Set the **Alternate DNS Server** to `8.8.8.8` (Google DNS).
+
+2. **Domain Join & OU Migration:**
+   - Go to **Settings > System > About > Advanced System Settings > Computer Name**.
+   - Click **Change**, select **Domain**, and enter your domain name (e.g., `lab.local`).
+   - Authenticate with Domain Admin credentials and restart.
+   - **Crucial Step:** On the Domain Controller, open **ADUC** and move the new computer object from the default `Computers` container into **`LAB_Assets > Endpoints > Workstations`**.
+
+3. **Verify Domain Login:**
+   - On the Windows 11 login screen, select **Other User**.
+   - Log in using the credentials created earlier (e.g., `mwright`).
+   - Run `whoami /fqdn` in Command Prompt to confirm the user is recognized by the domain.
+</details>
+
+<details>
+<summary><h2>7. Creating and Linking Group Policy Objects (GPOs)</h2></summary>
+
+**Objective:** Implement centralized management by creating and enforcing policies across the domain.
+
+1. **Launch Group Policy Management:**
+   - Open the **Group Policy Management Console (GPMC)** from the Server Manager Tools menu.
+
+2. **Create a New GPO:**
+   - Navigate to **`Forest > Domains > [Your Domain]`**.
+   - Right-click **Group Policy Objects** and select **New**.
+   - Name the GPO based on its function (e.g., `GPO_Disable_USB` or `GPO_Wallpaper_Standard`).
+
+3. **Configure Policy Settings:**
+   - Right-click your new GPO and select **Edit**.
+   - **Example - Restrict Control Panel:** - *User Configuration > Policies > Administrative Templates > Control Panel > Prohibit access to Control Panel.*
+   - **Example - Wallpaper:** - *User Configuration > Policies > Administrative Templates > Desktop > Desktop > Desktop Wallpaper.*
+
+4. **Link the GPO to an OU:**
+   - Right-click the specific OU where you want the policy to apply (e.g., `LAB_Assets > Accounts > Finance`).
+   - Select **Link an Existing GPO** and choose your policy.
+
+5. **Enforce the Policy:**
+   - On the Windows 11 client, open Command Prompt and run `gpupdate /force` to apply the changes immediately without rebooting.
+</details>
+
+<details>
+<summary><h2>8. Configuring File Sharing and NTFS Permissions</h2></summary>
+
+**Objective:** Set up a secure, department-specific network share using the Principle of Least Privilege.
+
+1. **Initialize the Shared Directory:**
+   - On the Server's `C:` drive, create a folder named **`Company_Data`**.
+   - Inside that folder, create a sub-folder named **`Finance_Private`**.
+
+2. **Configure Advanced Sharing (Share Permissions):**
+   - Right-click `Company_Data` > **Properties > Sharing > Advanced Sharing**.
+   - Check **"Share this folder"** and name it `Data$`. (The `$` makes it a "hidden" share).
+   - Click **Permissions**: Set **`Everyone`** to **`Read/Write`**. 
+   - *Note: We manage the actual restrictions in the next step via NTFS.*
+
+3. **Configure NTFS Permissions (Security Tab):**
+   - Go to the **Security** tab > **Advanced**.
+   - **Disable Inheritance** and convert existing permissions to explicit permissions.
+   - Remove the `Users` group.
+   - Add your security group (e.g., **`SG-Finance-Read-Only`**) and assign **`Read & Execute`** permissions.
+
+4. **Verify Access from Client:**
+   - On the Windows 11 machine, press `Win + R` and type `\\<Server-IP>\Data$`.
+   - Confirm that users in the Finance group can see the files, while users from other departments (like HR) are denied access.
+</details>
 
 
 
@@ -140,8 +212,6 @@ Objective: Assign a persistent identity to the Domain Controller to ensure relia
 <summary><h2> </h2></summary> 
 </details>
 -->
-
-
 
 
 
