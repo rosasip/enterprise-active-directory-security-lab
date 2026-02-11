@@ -100,8 +100,9 @@ Objective: Manage group memberships
   - Verify the membership
 
 ## 5. Configure Network settings for the Server
-  - Change the domain controller’s IP address to static IP
-  - Change DNS Servers to loopback and google DNS
+Objective: Assign a persistent identity to the Domain Controller to ensure reliable connectivity for all domain clients.
+
+- Static IP Assignment:
 
 
 
