@@ -312,6 +312,7 @@ Objective: Assign a persistent identity to the Domain Controller to ensure relia
 
 
 <!-- 
+"I love my Dropdown" or/and "Accordion" effect. :)
 <details>
 <summary><h2> </h2></summary> 
 </details>
