@@ -52,9 +52,10 @@ Departmental User Organization:
 
 
  ## 2. Creating User Accounts - Identity & Access Management
-- Locate the Target Container:
-  - Select your LAB_Assets > Accounts OU.
-  - Select the specific department (e.g., IT_Admins or Finance).
+ - Objective: Provision domain user accounts with standardized naming conventions and attributes.
+  - Locate the Target Container:
+    - Select your LAB_Assets > Accounts OU.
+    - Select the specific department (e.g., IT_Admins or Finance).
 
 - Provision a New User:
   - Right-click the departmental OU and select New > User.
