@@ -77,7 +77,21 @@ Departmental User Organization:
 
 💡 Professional Note: In a production environment, SysAdmins rarely create users manually. This process is typically automated using PowerShell scripts or Identity Management (IdM) systems to sync users from an HR database via a CSV file.
 
-## 3. Creating Groups
+## 3. Security & Distribution Group Management
+Objective: Create logical containers to manage permissions and communication across the domain.
+
+- Navigate to the Security Groups OU:
+  - In ADUC, go to your LAB_Assets > Security_Groups container. (Centralizing groups here makes auditing much easier).
+ 
+- Initialize a New Group:
+  - Right-click inside the OU and select New > Group.  
+- Standardized Group Naming:
+  - Use a prefix to identify the group’s purpose (e.g., SG for Security Group or DL for Distribution List). Example Name: SG-Finance-Read-Only or SG-IT-Admins. 
+- Configure Group Scope and Type:
+  - Group Scope: Select Global. (This is the standard for most departmental groups within a single domain).
+  - Group Type: Select Security. (Note: Security groups are used for permissions (folders, printers), while Distribution groups are strictly for email lists.)
+- Assign Membership:
+  - Right-click your new group, go to Properties > Members, and add the user accounts you created in the previous exercise.  
 
 
 
