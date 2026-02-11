@@ -101,31 +101,6 @@
 
 
 
- ## 2. Creating User Accounts - Identity & Access Management
- Objective: Provision domain user accounts with standardized naming conventions and attributes.
-  - Locate the Target Container:
-    - Select your LAB_Assets > Accounts OU.
-    - Select the specific department (e.g., IT_Admins or Finance).
-
-- Provision a New User:
-  - Right-click the departmental OU and select New > User.
-
-- Define Identity Attributes:
-  - Follow a standard naming convention for the User Logon Name (e.g., First Initial + Last Name).
-   - Example: * First Name: Marcus
-   - Last Name: Wright
-   - User Logon Name: mwright
-
-- Security & Password Configuration:
-  - Assign a temporary password that meets the domain's complexity requirements.
-  - Settings: Select "User must change password at next logon" (best practice) or "Password never expires" (common for lab service accounts).
-
-- Assign Professional Metadata:
-  - Once the user is created, right-click the account and select Properties.
-  - In the Description field, add their specific role (e.g., Senior Systems Engineer).
-  - Under the Organization tab, fill in the Job Title and Department.
-
-💡 Professional Note: In a production environment, SysAdmins rarely create users manually. This process is typically automated using PowerShell scripts or Identity Management (IdM) systems to sync users from an HR database via a CSV file.
 
 ## 3. Security & Distribution Group Management
 Objective: Create logical containers to manage permissions and communication across the domain.
