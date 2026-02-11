@@ -22,4 +22,4 @@
 ### Hands-On Activities 
 1. Rename the server hostname
 2. Install Active Directory Tools and Promote as Domain Controller.
-3. 3. Creating Organizational Units (OUs)
+3. Creating Organizational Units (OUs)
