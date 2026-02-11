@@ -19,7 +19,33 @@
 - Install Windows Server 2022 (or 2025) and configure it as a Domain Controller.
 - Install a couple of Windows client machines (Windows 11 Pro) and join them to the domain.
 
-### Hands-On Activities 
+### Activity 
 1. Rename the server hostname
 2. Install Active Directory Tools and Promote as Domain Controller.
 3. Creating Organizational Units (OUs)
+
+Objective: Organize the domain environment using a structured Organizational Unit (OU) design that separates users, groups, and devices.
+
+- Launch Management Tools:
+  - Open Active Directory Users and Computers (ADUC) from the Tools menu in Server Manager.
+
+- Create the Root Container:
+  - Right-click your domain (e.g., lab.local) and select New > Organizational Unit.
+  - Name it LAB_Assets. (Creating a single root OU keeps your custom lab objects separate from the default Windows containers).
+
+- Establish Object-Based Tiers:
+  - Right-click your new LAB_Assets OU and create three nested OUs:
+  - Accounts (For all human and service users)
+  - Endpoints (For all physical and virtual hardware)
+  - Security_Groups (For managing permissions)
+
+- Refine the Endpoint Hierarchy:
+- Inside the Endpoints OU, create two more nested OUs to separate policies:
+  - Workstations (Target for Windows 11 client GPOs)
+  - Servers (Target for application or file server GPOs)
+
+Departmental User Organization:
+- Inside the Accounts OU, create nested OUs for your specific teams:
+  - IT_Admins
+  - Finance
+  - Human_Resources
