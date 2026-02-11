@@ -92,8 +92,8 @@ Objective: Create logical containers to manage permissions and communication acr
 - Assign Membership:
   - Right-click your new group, go to Properties > Members, and add the user accounts you created in the previous exercise.  
 
-4. Adding Users to Groups
-● Objective: Manage group memberships.
+## 4. Adding Users to Groups
+- Objective: Manage group memberships.
 
 
 
