@@ -93,8 +93,15 @@ Objective: Create logical containers to manage permissions and communication acr
   - Right-click your new group, go to Properties > Members, and add the user accounts you created in the previous exercise.  
 
 ## 4. Adding Users to Groups
-- Objective: Manage group memberships.
+Objective: Manage group memberships
+  - Open the properties of a user account
+  - Go to the Member Of tab
+  - Click Add and select the group (e.g., #HR_Department)
+  - Verify the membership
 
+## 5. Configure Network settings for the Server
+  - Change the domain controller’s IP address to static IP
+  - Change DNS Servers to loopback and google DNS
 
 
 
