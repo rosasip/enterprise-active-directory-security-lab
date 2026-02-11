@@ -6,27 +6,18 @@
        src="https://github.com/user-attachments/assets/473de028-a937-4015-89aa-b294ea1b368e" />
 </div>
 
-<details>
-<summary><h2>Hardware Requirements</h2></summary>
-
+## Hardware Requirements
 - **VMware Workstation Pro:** 1.2 GB Disk Space and 64-bit OS
 - **Windows Server 2025:** 4 GB Memory, 60 GB Disk Space
 - **Windows 11 Pro:** 4 GB Memory, 64 GB Disk Space (Minimum)
-- **Virtualization:** VT-x (Intel) or AMD-V enabled in BIOS
-</details>
-<details>
-<summary><h2>Lab Setup</h2></summary>
 
-1. **Set Up a Virtual Lab Environment:**
+## Lab Setup
+1. ** Set Up a Virtual Lab Environment:**
    - Use virtualization software like **VMware Workstation Pro**, **Hyper-V**, or **VirtualBox**.
    - Install **Windows Server 2022 (or 2025)** and configure it as a **Domain Controller**.
    - Install a couple of Windows client machines (**Windows 11 Pro**) and join them to the domain.
-</details>
 
-
-
-<details>
-<summary><h2>Activity: Infrastructure & OU Architecture</h2></summary>
+## Activity: Infrastructure & OU Architecture
 
 1. **Rename the server hostname**
    - Assign a unique, descriptive name (e.g., `SVR-DC-01`) and reboot to apply.
@@ -61,7 +52,7 @@
        - **`Finance`**
        - **`Human_Resources`**
 
-</details>
+
 
 
 
