@@ -51,7 +51,7 @@
        - **`IT_Admins`**
        - **`Finance`**
        - **`Human_Resources`**
-       
+           
 <details>
 <summary><h2>2. Creating User Accounts</h2></summary>
 
@@ -81,8 +81,8 @@
   - Under the **Organization** tab, fill in the **Job Title** and **Department**.
 
 > 💡 **Professional Note:** In a production environment, SysAdmins rarely create users manually. This process is typically automated using PowerShell scripts or Identity Management (IdM) systems to sync users from an HR database via a CSV file.
-
 </details>
+
 <details> 
  <summary><h2> 3. Creating Groups </h2></summary> 
 Objective: Security & Distribution Group Management
@@ -100,12 +100,6 @@ Objective: Security & Distribution Group Management
   - Right-click your new group, go to Properties > Members, and add the user accounts you created in the previous exercise.  
 </details>
 
-
-<!-- 
-<details>
-<summary><h2> </h2></summary> 
-</details>
--->
 <details>
 <summary><h2>4. Adding Users to Groups </h2></summary>  
 Objective: Delegate permissions by nesting user accounts into functional security groups.
@@ -119,9 +113,8 @@ Objective: Delegate permissions by nesting user accounts into functional securit
   - Verify the membership (Security Best Practice: Always assign permissions to Groups, not individual Users.)
 </details>
 
-
-
-## 5. Configure Network settings for the Server
+<details> 
+<summary><h2>5. Configure Network settings for the Server</h2></summary> 
 Objective: Assign a persistent identity to the Domain Controller to ensure reliable connectivity for all domain clients.
 
 - Static IP Assignment:
@@ -136,13 +129,17 @@ Objective: Assign a persistent identity to the Domain Controller to ensure relia
     -  Reason: This allows the server to reach the internet for updates if it can't resolve a query locally.
   - Verification:
     -   Open Command Prompt and run ipconfig /all to confirm the settings are applied and that the "DHCP Enabled" flag is now set to No.
-   
+</details>
 
 
 
 
 
-
+<!-- 
+<details>
+<summary><h2> </h2></summary> 
+</details>
+-->
 
 
 
