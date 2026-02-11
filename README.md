@@ -1,4 +1,4 @@
-## Basic Active Directory, Networking, and File Sharing
+## Basic Active Directory, Networking, and File Sharing Project
 
 <div style="background: #f6f8fa; padding: 20px; border-radius: 6px; border: 1px solid #e1e4e8; max-width: 800px;">
   <img width="757" 
@@ -52,8 +52,7 @@ Departmental User Organization:
 
 
 
-## 2. Creating User Accounts - Identity & Access Management
-
+ ## 2. Creating User Accounts - Identity & Access Management
 - Locate the Target Container:
   - Select your LAB_Assets > Accounts OU.
   - Select the specific department (e.g., IT_Admins or Finance).
