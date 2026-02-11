@@ -93,16 +93,33 @@ Objective: Create logical containers to manage permissions and communication acr
   - Right-click your new group, go to Properties > Members, and add the user accounts you created in the previous exercise.  
 
 ## 4. Adding Users to Groups
-Objective: Manage group memberships
-  - Open the properties of a user account
-  - Go to the Member Of tab
-  - Click Add and select the group (e.g., #HR_Department)
-  - Verify the membership
+Objective: Delegate permissions by nesting user accounts into functional security groups.
+  - Access User Identity Properties:
+    - In ADUC, locate the user account you want to manage (e.g., in the Accounts > Finance OU).
+    - Right-click the user and select Properties.
+  - Assign Group Affiliation:
+    - Navigate to the Member Of tab.
+    - Click Add and type the name of the security group you created earlier (e.g., SG-Finance-Read-Only).
+    - Click Check Names to validate the object, then click OK.
+  - Verify the membership (Security Best Practice: Always assign permissions to Groups, not individual Users.)
 
 ## 5. Configure Network settings for the Server
 Objective: Assign a persistent identity to the Domain Controller to ensure reliable connectivity for all domain clients.
 
 - Static IP Assignment:
+  - Open Network Connections and modify the IPv4 properties of your primary Ethernet adapter.
+  - Switch from "Obtain an IP address automatically" to "Use the following IP address."
+  - Example IP: 172.16.0.10 (or any address within your lab's subnet).
+ 
+- DNS Server Hierarchy:
+  - Preferred DNS: Set this to 127.0.0.1 (the Loopback address).
+    - Reason: This tells the server to look at itself first to resolve Active Directory queries.
+  -  Alternate DNS: Set this to 8.8.8.8 (Google Public DNS) or 1.1.1.1 (Cloudflare).
+    -  Reason: This allows the server to reach the internet for updates if it can't resolve a query locally.
+  - Verification:
+    -   Open Command Prompt and run ipconfig /all to confirm the settings are applied and that the "DHCP Enabled" flag is now set to No.
+   
+
 
 
 
