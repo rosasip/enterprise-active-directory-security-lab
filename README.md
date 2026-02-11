@@ -40,9 +40,9 @@ Objective: Organize the domain environment using a structured Organizational Uni
   - Security_Groups (For managing permissions)
 
 - Refine the Endpoint Hierarchy:
-- Inside the Endpoints OU, create two more nested OUs to separate policies:
-  - Workstations (Target for Windows 11 client GPOs)
-  - Servers (Target for application or file server GPOs)
+  - Inside the Endpoints OU, create two more nested OUs to separate policies:
+    - Workstations (Target for Windows 11 client GPOs)
+    - Servers (Target for application or file server GPOs)
 
 Departmental User Organization:
 - Inside the Accounts OU, create nested OUs for your specific teams:
