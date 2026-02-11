@@ -18,3 +18,8 @@
 - Use virtualization software like VMware Workstation Pro, Hyper-V, or VirtualBox.
 - Install Windows Server 2022 (or 2025) and configure it as a Domain Controller.
 - Install a couple of Windows client machines (Windows 11 Pro) and join them to the domain.
+
+### Hands-On Activities 
+1. Rename the server hostname
+2. Install Active Directory Tools and Promote as Domain Controller.
+3. 3. Creating Organizational Units (OUs)
