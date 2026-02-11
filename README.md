@@ -52,7 +52,7 @@ Departmental User Organization:
 
 
  ## 2. Creating User Accounts - Identity & Access Management
- - Objective: Provision domain user accounts with standardized naming conventions and attributes.
+ Objective: Provision domain user accounts with standardized naming conventions and attributes.
   - Locate the Target Container:
     - Select your LAB_Assets > Accounts OU.
     - Select the specific department (e.g., IT_Admins or Finance).
@@ -61,7 +61,7 @@ Departmental User Organization:
   - Right-click the departmental OU and select New > User.
 
 - Define Identity Attributes:
- - Follow a standard naming convention for the User Logon Name (e.g., First Initial + Last Name).
+  - Follow a standard naming convention for the User Logon Name (e.g., First Initial + Last Name).
    - Example: * First Name: Marcus
    - Last Name: Wright
    - User Logon Name: mwright
