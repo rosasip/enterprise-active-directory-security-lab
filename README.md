@@ -174,6 +174,8 @@ Objective: Assign a persistent identity to the Domain Controller to ensure relia
 4. **Link the GPO to an OU:**
    - Right-click the specific OU where you want the policy to apply (e.g., `LAB_Assets > Accounts > Finance`).
    - Select **Link an Existing GPO** and choose your policy.
+  
+<!-- The type of each folder is different. The main difference between a container and a Organisational Unit is that in the container type Group Policies cannot be applied, in the Organisational Unit type of folder you can apply group policies.-->
 
 5. **Enforce the Policy:**
    - On the Windows 11 client, open Command Prompt and run `gpupdate /force` to apply the changes immediately without rebooting.
