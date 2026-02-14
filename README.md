@@ -103,13 +103,14 @@ Objective: Security & Distribution Group Management
 <details>
 <summary><h2>4. Adding Users to Groups </h2></summary>  
 Objective: Delegate permissions by nesting user accounts into functional security groups.
+   
   - Access User Identity Properties:
-    - In ADUC, locate the user account you want to manage (e.g., in the Accounts > Finance OU).
-    - Right-click the user and select Properties.
+      - In ADUC, locate the user account you want to manage (e.g., in the Accounts > Finance OU).
+      - Right-click the user and select Properties.
   - Assign Group Affiliation:
-    - Navigate to the Member Of tab.
-    - Click Add and type the name of the security group you created earlier (e.g., SG-Finance-Read-Only).
-    - Click Check Names to validate the object, then click OK.
+      - Navigate to the Member Of tab.
+      - Click Add and type the name of the security group you created earlier (e.g., SG-Finance-Read-Only).
+      - Click Check Names to validate the object, then click OK.
   - Verify the membership (Security Best Practice: Always assign permissions to Groups, not individual Users.)
 </details>
 
