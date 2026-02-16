@@ -316,6 +316,28 @@ Objective: Assign a persistent identity to the Domain Controller to ensure relia
 
 <!-- 
 "I love my Dropdown" or/and "Accordion" effect. :)
+
+
+
+
+
+
+\resumeProjectHeading
+    {\textbf{Active Directory & Windows Server Lab} $|$ \emph{Windows Server, Active Directory, PowerShell, Group Policy, VMware}}{Jan 2025 -- Mar 2025}
+    \resumeItemListStart
+        \resumeItem{Designed and deployed a secure Active Directory lab environment with multiple Windows Server and Windows 11 virtual machines, implementing Organizational Units (OUs) and structured user/group hierarchies.}
+        \resumeItem{Configured Group Policy Objects (GPOs) for account lockout policies, drive mapping, and security restrictions, enforcing least privilege principles.}
+        \resumeItem{Automated user and group management tasks with PowerShell, improving efficiency and ensuring consistent policy application across the domain.}
+        \resumeItem{Configured file sharing and NTFS permissions, ensuring department-specific access and verifying access control across clients.}
+        \resumeItem{Validated authentication, network configuration, and policy enforcement, simulating real-world system administration and SOC monitoring scenarios.}
+    \resumeItemListEnd
+    \vspace{-13pt}
+
+
+
+
+
+
 <details>
 <summary><h2> </h2></summary> 
 </details>
