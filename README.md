@@ -54,7 +54,7 @@
 
 
 <details> 
-<summary><h2>5. Configure Network settings for the Server</h2></summary> 
+<summary><h2>1. Configure Network settings for the Server</h2></summary> 
 Objective: Assign a persistent identity to the Domain Controller to ensure reliable connectivity for all domain clients.
 
 - Static IP Assignment:
@@ -133,10 +133,8 @@ Objective: Delegate permissions by nesting user accounts into functional securit
   - Verify the membership (Security Best Practice: Always assign permissions to Groups, not individual Users.)
 </details>
 
-
-
 <details>
-<summary><h2>6. Join Windows Client to the Domain</h2></summary>
+<summary><h2>5. Join Windows Client to the Domain</h2></summary>
 
 **Objective:** Connect the Windows 11 workstation to the Active Directory environment and verify user authentication.
 
@@ -158,7 +156,7 @@ Objective: Delegate permissions by nesting user accounts into functional securit
 </details>
 
 <details>
-<summary><h2>7. Creating and Linking Group Policy Objects (GPOs)</h2></summary>
+<summary><h2>6. Creating and Linking Group Policy Objects (GPOs)</h2></summary>
 
 **Objective:** Implement centralized management by creating and enforcing policies across the domain.
 
@@ -186,7 +184,7 @@ Objective: Delegate permissions by nesting user accounts into functional securit
 </details>
 
 <details>
-<summary><h2>8. Configuring File Sharing and NTFS Permissions</h2></summary>
+<summary><h2>7. Configuring File Sharing and NTFS Permissions</h2></summary>
 
 **Objective:** Set up a secure, department-specific network share using the Principle of Least Privilege.
 
@@ -212,7 +210,7 @@ Objective: Delegate permissions by nesting user accounts into functional securit
 </details>
 
 <details>
-<summary><h2>9. Map Network Drives via Group Policy</h2></summary>
+<summary><h2>8. Map Network Drives via Group Policy</h2></summary>
 
 **Objective:** Automatically mount network shares as drive letters for users when they log in.
 
@@ -240,7 +238,7 @@ Objective: Delegate permissions by nesting user accounts into functional securit
 </details>
 
 <details>
-<summary><h2>10. Creating & Configuring Service Accounts</h2></summary>
+<summary><h2>9. Creating & Configuring Service Accounts</h2></summary>
 
 **Objective:** Provision a dedicated account for automated system processes or kiosk environments.
 
@@ -270,7 +268,7 @@ Objective: Delegate permissions by nesting user accounts into functional securit
 
 
 <details>
-<summary><h2>11. Configuring Account Lockout Policy</h2></summary>
+<summary><h2>10. Configuring Account Lockout Policy</h2></summary>
 
 **Objective:** Mitigate brute-force and dictionary attacks by automatically disabling accounts after multiple failed login attempts.
 
