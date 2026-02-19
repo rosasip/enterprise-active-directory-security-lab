@@ -57,61 +57,6 @@
 
 
 
-## 🛠️ Step-by-Step Lab Guide
-
-<summary><h2>1. Initial Server Configuration (Windows Server 2025)</h2></summary>
-
-**Objective:** Prepare the server identity and network foundation before promoting it to a Domain Controller.
-
-### Phase A: Identity & Networking
-- **Rename Hostname:** Navigate to **Settings > System > About** and rename the PC to `SVR-DC-01`. (Reboot required).
-- **Static IP Assignment:**
-  - **IP Address:** `172.16.0.10`
-  - **Subnet Mask:** `255.255.255.0`
-  - **Preferred DNS:** `127.0.0.1` (Loopback)
-  - **Alternate DNS:** `8.8.8.8` (External fallback)
-
-### Phase B: Role Installation
-- **Install AD DS:** Use **Server Manager** to add the **Active Directory Domain Services** role.
-- **Promote Server:** Once installed, click the notification flag and select **"Promote this server to a domain controller"** to create your forest (e.g., `lab.local`).
-
-**Video Walkthrough:** [How to Rename and Set a Static IP - Windows Server 2025](https://www.youtube.com/watch?v=Ny8Ec4VAfIg)
-</details>
-
-<details>
-<summary><h2>2. Creating Organizational Units (OUs)</h2></summary>
-
-**Objective:** Organize the domain environment using a structured design that separates users, groups, and devices.
-
-- **Launch Management Tools:**
-  - Open **Active Directory Users and Computers (ADUC)** from the Tools menu.
-
-- **Create the Root Container:**
-  - Right-click your domain (e.g., `lab.local`) > **New > Organizational Unit**.
-  - Name it **`LAB_Assets`**.
-
-- **Establish Object-Based Tiers:**
-  - Right-click `LAB_Assets` and create three nested OUs:
-    - **`Accounts`** (For all users)
-    - **`Endpoints`** (For all hardware)
-    - **`Security_Groups`** (For permissions)
-
-- **Refine the Endpoint Hierarchy:**
-  - Inside **`Endpoints`**, create two nested OUs:
-    - **`Workstations`** (Target for Windows 11 GPOs)
-    - **`Servers`** (Target for server-specific GPOs)
-
-- **Departmental User Organization:**
-  - Inside **`Accounts`**, create nested OUs for:
-    - **`IT_Admins`**
-    - **`Finance`**
-    - **`Human_Resources`**
-
-
-
-
-
-
 <details> 
 <summary><h2>1. Configure Network settings for the Server (Windows Server 2025)</h2></summary> 
 Objective: Assign a persistent identity to the Domain Controller to ensure reliable connectivity for all domain clients using the updated Server 2025 interface.
