@@ -1,91 +1,75 @@
 ### Active Directory, Networking, and File Sharing Lab Project
 
 <div style="background: #f6f8fa; padding: 20px; border-radius: 6px; border: 1px solid #e1e4e8; max-width: 800px;">
-  <img width="757" 
-       alt="HomeLab Project Workflow." 
-    <img width="1024" height="1536" alt="HomeLab Project Workflow" src="https://github.com/user-attachments/assets/6b920f71-ae8a-4901-9a12-bfc571f5aae4" />
-
-    
+  <img width="1024" height="auto" alt="HomeLab Project Workflow" src="https://github.com/user-attachments/assets/6b920f71-ae8a-4901-9a12-bfc571f5aae4" />
 </div>
 
 ## Step-by-Step Lab Guide
 
-<summary><h2>1. Initial Server Configuration (Windows Server 2025)</h2></summary> 
+### 1. Initial Server Configuration (Windows Server 2025)
 
 **Objective:** Prepare the server identity and network foundation before promoting it to a Domain Controller.
 
 ### Phase A: Identity & Networking
-- **Rename Hostname:** - Navigate to **Settings > System > About** and rename the PC to `SVR-DC-01`. (Reboot required).
-- **Static IP Assignment:**
-  - **IP Address:** `172.16.0.10`
-  - **Subnet Mask:** `255.255.255.0`
-  - **Preferred DNS:** `127.0.0.1` (Loopback)
-  - **Alternate DNS:** `8.8.8.8` (External fallback)
-
-### Phase B: Role Installation
-- **Install AD DS:** Use Server Manager to add the **Active Directory Domain Services** role.
-- **Promote Server:** Once installed, click the notification flag and select "Promote this server to a domain controller" to create your forest (e.g., `lab.local`).
-
-**Video Walkthrough:** [How to Rename and Set a Static IP - Windows Server 2025](https://www.youtube.com/watch?v=Ny8Ec4VAfIg)
-
-3. **Creating Organizational Units (OUs)**
-   - **Objective:** Organize the domain environment using a structured design that separates users, groups, and devices.
-
-   - **Launch Management Tools:**
-     - Open **Active Directory Users and Computers (ADUC)** from the Tools menu.
-
-   - **Create the Root Container:**
-     - Right-click your domain (e.g., `lab.local`) > **New > Organizational Unit**.
-     - Name it **`LAB_Assets`**.
-
-   - **Establish Object-Based Tiers:**
-     - Right-click `LAB_Assets` and create three nested OUs:
-       - **`Accounts`** (For all users)
-       - **`Endpoints`** (For all hardware)
-       - **`Security_Groups`** (For permissions)
-
-   - **Refine the Endpoint Hierarchy:**
-     - Inside **`Endpoints`**, create two nested OUs:
-       - **`Workstations`** (Target for Windows 11 GPOs)
-       - **`Servers`** (Target for server-specific GPOs)
-
-   - **Departmental User Organization:**
-     - Inside **`Accounts`**, create nested OUs for:
-       - **`IT_Admins`**
-       - **`Finance`**
-       - **`Human_Resources`**
-
-
-
-<details> 
-<summary><h2>1. Configure Network settings for the Server (Windows Server 2025)</h2></summary> 
-Objective: Assign a persistent identity to the Domain Controller to ensure reliable connectivity for all domain clients using the updated Server 2025 interface.
+- **Rename Hostname:** Navigate to **Settings > System > About** and rename the PC to `SVR-DC-01`. (Reboot required).
 
 - **Static IP Assignment:**
   - Open **Settings** > **Network & internet** > **Ethernet**.
   - Click on your connected network and select **Edit** next to "IP assignment."
   - Change the setting to **Manual**, toggle **IPv4** to **On**, and enter your details:
-    - **IP Address:** `172.16.0.10` (or your chosen lab IP).
-    - **Subnet Mask:** `255.255.255.0`.
-    - **Gateway:** Your lab router/host gateway (e.g., `172.16.0.1`).
+    - **IP Address:** `172.16.0.10`
+    - **Subnet Mask:** `255.255.255.0`
+    - **Gateway:** `172.16.0.1`
  
 - **DNS Server Hierarchy:**
   - In the same menu, set **DNS server assignment** to **Manual**:
-  - **Preferred DNS:** `127.0.0.1` (The Loopback address).
-    - *Reason:* This ensures the server queries its own Active Directory database first.
-  - **Alternate DNS:** `8.8.8.8` (Google) or `1.1.1.1` (Cloudflare).
-    - *Reason:* Provides external resolution for Windows Updates if local DNS is unavailable.
+    - **Preferred DNS:** `127.0.0.1` (Loopback)
+    - **Alternate DNS:** `8.8.8.8` (External fallback)
 
 - **Verification:**
   - Open **PowerShell** or **Command Prompt** and run `ipconfig /all`.
   - Confirm that **DHCP Enabled** is set to **No** and your DNS servers are correctly listed.
-  - **Video Walkthrough:**
-  - If you'd like a visual guide for these steps and the server renaming process, watch the walkthrough here: [How to Rename and Set a Static IP - Windows Server 2025](https://www.youtube.com/watch?v=Ny8Ec4VAfIg)
+
+### Phase B: Role Installation
+- **Install AD DS:** Use Server Manager to add the **Active Directory Domain Services** role.
+- **Promote Server:** Once installed, click the notification flag and select "Promote this server to a domain controller" to create your forest (e.g., `lab.local`).
+
+- **Video Walkthrough:**
+  - [How to Rename and Set a Static IP - Windows Server 2025](https://www.youtube.com/watch?v=Ny8Ec4VAfIg)
+
+
+<details>
+<summary><h2>2. Creating Organizational Units (OUs)</h2></summary>
+
+**Objective:** Organize the domain environment using a structured design that separates users, groups, and devices.
+
+- **Launch Management Tools:**
+  - Open **Active Directory Users and Computers (ADUC)** from the Tools menu.
+
+- **Create the Root Container:**
+  - Right-click your domain (e.g., `lab.local`) > **New > Organizational Unit**.
+  - Name it **`LAB_Assets`**.
+
+- **Establish Object-Based Tiers:**
+  - Right-click `LAB_Assets` and create three nested OUs:
+    - **`Accounts`** (For all users)
+    - **`Endpoints`** (For all hardware)
+    - **`Security_Groups`** (For permissions)
+
+- **Refine the Endpoint Hierarchy:**
+  - Inside **`Endpoints`**, create two nested OUs:
+    - **`Workstations`** (Target for Windows 11 GPOs)
+    - **`Servers`** (Target for server-specific GPOs)
+
+- **Departmental User Organization:**
+  - Inside **`Accounts`**, create nested OUs for:
+    - **`IT_Admins`**
+    - **`Finance`**
+    - **`Human_Resources`**
 </details>
 
-           
 <details>
-<summary><h2>2. Creating User Accounts</h2></summary>
+<summary><h2>3. Creating User Accounts</h2></summary>
 
 **Objective:** Provision domain user accounts with standardized naming conventions and attributes.
 
@@ -115,16 +99,17 @@ Objective: Assign a persistent identity to the Domain Controller to ensure relia
 > 💡 **Professional Note:** In a production environment, SysAdmins rarely create users manually. This process is typically automated using PowerShell scripts or Identity Management (IdM) systems to sync users from an HR database via a CSV file.
 </details>
 
-<details> 
- <summary><h2> 3. Creating Groups </h2></summary> 
-Objective: Security & Distribution Group Management
+<details>
+<summary><h2>4. Creating Groups</h2></summary>
+
+**Objective:** Security & Distribution Group Management
 
 - Navigate to the Security Groups OU:
   - In ADUC, go to your LAB_Assets > Security_Groups container. (Centralizing groups here makes auditing much easier).
 - Initialize a New Group:
   - Right-click inside the OU and select New > Group.  
 - Standardized Group Naming:
-  - Use a prefix to identify the group’s purpose (e.g., SG for Security Group or DL for Distribution List). Example Name: SG-Finance-Read-Only or SG-IT-Admins. 
+  - Use a prefix to identify the group's purpose (e.g., SG for Security Group or DL for Distribution List). Example Name: SG-Finance-Read-Only or SG-IT-Admins. 
 - Configure Group Scope and Type:
   - Group Scope: Select Global. (This is the standard for most departmental groups within a single domain).
   - Group Type: Select Security. (Note: Security groups are used for permissions (folders, printers), while Distribution groups are strictly for email lists.)
@@ -133,21 +118,22 @@ Objective: Security & Distribution Group Management
 </details>
 
 <details>
-<summary><h2>4. Adding Users to Groups </h2></summary>  
-Objective: Delegate permissions by nesting user accounts into functional security groups.
+<summary><h2>5. Adding Users to Groups</h2></summary>
+
+**Objective:** Delegate permissions by nesting user accounts into functional security groups.
    
-  - Access User Identity Properties:
-      - In ADUC, locate the user account you want to manage (e.g., in the Accounts > Finance OU).
-      - Right-click the user and select Properties.
-  - Assign Group Affiliation:
-      - Navigate to the Member Of tab.
-      - Click Add and type the name of the security group you created earlier (e.g., SG-Finance-Read-Only).
-      - Click Check Names to validate the object, then click OK.
-  - Verify the membership (Security Best Practice: Always assign permissions to Groups, not individual Users.)
+- Access User Identity Properties:
+  - In ADUC, locate the user account you want to manage (e.g., in the Accounts > Finance OU).
+  - Right-click the user and select Properties.
+- Assign Group Affiliation:
+  - Navigate to the Member Of tab.
+  - Click Add and type the name of the security group you created earlier (e.g., SG-Finance-Read-Only).
+  - Click Check Names to validate the object, then click OK.
+- Verify the membership (Security Best Practice: Always assign permissions to Groups, not individual Users.)
 </details>
 
 <details>
-<summary><h2>5. Join Windows Client to the Domain</h2></summary>
+<summary><h2>6. Join Windows Client to the Domain</h2></summary>
 
 **Objective:** Connect the Windows 11 workstation to the Active Directory environment and verify user authentication.
 
@@ -169,7 +155,7 @@ Objective: Delegate permissions by nesting user accounts into functional securit
 </details>
 
 <details>
-<summary><h2>6. Creating and Linking Group Policy Objects (GPOs)</h2></summary>
+<summary><h2>7. Creating and Linking Group Policy Objects (GPOs)</h2></summary>
 
 **Objective:** Implement centralized management by creating and enforcing policies across the domain.
 
@@ -197,7 +183,7 @@ Objective: Delegate permissions by nesting user accounts into functional securit
 </details>
 
 <details>
-<summary><h2>7. Configuring File Sharing and NTFS Permissions</h2></summary>
+<summary><h2>8. Configuring File Sharing and NTFS Permissions</h2></summary>
 
 **Objective:** Set up a secure, department-specific network share using the Principle of Least Privilege.
 
@@ -223,7 +209,7 @@ Objective: Delegate permissions by nesting user accounts into functional securit
 </details>
 
 <details>
-<summary><h2>8. Map Network Drives via Group Policy</h2></summary>
+<summary><h2>9. Map Network Drives via Group Policy</h2></summary>
 
 **Objective:** Automatically mount network shares as drive letters for users when they log in.
 
@@ -251,7 +237,7 @@ Objective: Delegate permissions by nesting user accounts into functional securit
 </details>
 
 <details>
-<summary><h2>9. Creating & Configuring Service Accounts</h2></summary>
+<summary><h2>10. Creating & Configuring Service Accounts</h2></summary>
 
 **Objective:** Provision a dedicated account for automated system processes or kiosk environments.
 
@@ -279,9 +265,8 @@ Objective: Delegate permissions by nesting user accounts into functional securit
    - This encrypts the credentials in the registry, allowing the machine to bypass the login screen and go straight to the desktop after a reboot—ideal for dashboard monitors or kiosks.
 </details>
 
-
 <details>
-<summary><h2>10. Configuring Account Lockout Policy</h2></summary>
+<summary><h2>11. Configuring Account Lockout Policy</h2></summary>
 
 **Objective:** Mitigate brute-force and dictionary attacks by automatically disabling accounts after multiple failed login attempts.
 
@@ -325,57 +310,3 @@ Objective: Delegate permissions by nesting user accounts into functional securit
    - Intentional Failure: Attempt to log in with a wrong password 5 times.
    - **Success Criteria:** The 6th attempt should trigger a message stating the account is locked. Confirm you can unlock the user from the Domain Controller.
 </details>
-
-
-
-<!-- 
-"I love my Dropdown" or/and "Accordion" effect. :)
-
-
-
-
-
-
-\resumeProjectHeading
-    {\textbf{Active Directory & Windows Server Lab} $|$ \emph{Windows Server, Active Directory, PowerShell, Group Policy, VMware}}{Jan 2025 -- Mar 2025}
-    \resumeItemListStart
-        \resumeItem{Designed and deployed a secure Active Directory lab environment with multiple Windows Server and Windows 11 virtual machines, implementing Organizational Units (OUs) and structured user/group hierarchies.}
-        \resumeItem{Configured Group Policy Objects (GPOs) for account lockout policies, drive mapping, and security restrictions, enforcing least privilege principles.}
-        \resumeItem{Automated user and group management tasks with PowerShell, improving efficiency and ensuring consistent policy application across the domain.}
-        \resumeItem{Configured file sharing and NTFS permissions, ensuring department-specific access and verifying access control across clients.}
-        \resumeItem{Validated authentication, network configuration, and policy enforcement, simulating real-world system administration and SOC monitoring scenarios.}
-    \resumeItemListEnd
-    \vspace{-13pt}
-
-
-
-
-
-
-<details>
-<summary><h2> </h2></summary> 
-</details>
--->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
