@@ -9,10 +9,10 @@
 </div>
 
 ## Hardware Requirements
-- **Oracle VirtualBox
+- **Hypervisor:** Oracle VirtualBox
 - **Windows Server 2025:** 4 GB Memory, 60 GB Disk Space
 - **Windows 11 Pro:** 4 GB Memory, 64 GB Disk Space (Minimum)
-
+  
 ## Lab Setup
 1. ** Set Up a Virtual Lab Environment:**
    - Use virtualization software like **VMware Workstation Pro**, **Hyper-V**, or **VirtualBox**.
