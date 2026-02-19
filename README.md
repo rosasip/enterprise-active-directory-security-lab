@@ -54,22 +54,31 @@
 
 
 <details> 
-<summary><h2>1. Configure Network settings for the Server</h2></summary> 
-Objective: Assign a persistent identity to the Domain Controller to ensure reliable connectivity for all domain clients.
+<summary><h2>1. Configure Network settings for the Server (Windows Server 2025)</h2></summary> 
+Objective: Assign a persistent identity to the Domain Controller to ensure reliable connectivity for all domain clients using the updated Server 2025 interface.
 
-- Static IP Assignment:
-  - Open Network Connections and modify the IPv4 properties of your primary Ethernet adapter.
-  - Switch from "Obtain an IP address automatically" to "Use the following IP address."
-  - Example IP: 172.16.0.10 (or any address within your lab's subnet).
+- **Static IP Assignment:**
+  - Open **Settings** > **Network & internet** > **Ethernet**.
+  - Click on your connected network and select **Edit** next to "IP assignment."
+  - Change the setting to **Manual**, toggle **IPv4** to **On**, and enter your details:
+    - **IP Address:** `172.16.0.10` (or your chosen lab IP).
+    - **Subnet Mask:** `255.255.255.0`.
+    - **Gateway:** Your lab router/host gateway (e.g., `172.16.0.1`).
  
-- DNS Server Hierarchy:
-  - Preferred DNS: Set this to 127.0.0.1 (the Loopback address).
-    - Reason: This tells the server to look at itself first to resolve Active Directory queries.
-  -  Alternate DNS: Set this to 8.8.8.8 (Google Public DNS) or 1.1.1.1 (Cloudflare).
-    -  Reason: This allows the server to reach the internet for updates if it can't resolve a query locally.
-  - Verification:
-    -   Open Command Prompt and run ipconfig /all to confirm the settings are applied and that the "DHCP Enabled" flag is now set to No.
+- **DNS Server Hierarchy:**
+  - In the same menu, set **DNS server assignment** to **Manual**:
+  - **Preferred DNS:** `127.0.0.1` (The Loopback address).
+    - *Reason:* This ensures the server queries its own Active Directory database first.
+  - **Alternate DNS:** `8.8.8.8` (Google) or `1.1.1.1` (Cloudflare).
+    - *Reason:* Provides external resolution for Windows Updates if local DNS is unavailable.
+
+- **Verification:**
+  - Open **PowerShell** or **Command Prompt** and run `ipconfig /all`.
+  - Confirm that **DHCP Enabled** is set to **No** and your DNS servers are correctly listed.
+  - **Video Walkthrough:**
+  - If you'd like a visual guide for these steps and the server renaming process, watch the walkthrough here: [How to Rename and Set a Static IP - Windows Server 2025](https://www.youtube.com/watch?v=Ny8Ec4VAfIg)
 </details>
+
            
 <details>
 <summary><h2>2. Creating User Accounts</h2></summary>
