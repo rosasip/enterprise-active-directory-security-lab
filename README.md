@@ -59,7 +59,6 @@
 
 ## 🛠️ Step-by-Step Lab Guide
 
-<details>
 <summary><h2>1. Initial Server Configuration (Windows Server 2025)</h2></summary>
 
 **Objective:** Prepare the server identity and network foundation before promoting it to a Domain Controller.
@@ -107,7 +106,7 @@
     - **`IT_Admins`**
     - **`Finance`**
     - **`Human_Resources`**
-</details>
+
 
 
 
