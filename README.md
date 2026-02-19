@@ -8,24 +8,26 @@
     
 </div>
 
-## Hardware Requirements
-- **Hypervisor:** Oracle VirtualBox
-- **Windows Server 2025:** 4 GB Memory, 60 GB Disk Space
-- **Windows 11 Pro:** 4 GB Memory, 64 GB Disk Space (Minimum)
-  
-## Lab Setup
-1. ** Set Up a Virtual Lab Environment:**
-   - Use virtualization software like **VMware Workstation Pro**, **Hyper-V**, or **VirtualBox**.
-   - Install **Windows Server 2022 (or 2025)** and configure it as a **Domain Controller**.
-   - Install a couple of Windows client machines (**Windows 11 Pro**) to join them to the domain.
+## Step-by-Step Lab Guide
 
-## Activity: Infrastructure & OU Architecture
 
-1. **Rename the server hostname**
-   - Assign a unique, descriptive name (e.g., `SVR-DC-01`) and reboot to apply.
+<summary><h2>1. Initial Server Configuration (Windows Server 2025)</h2></summary> 
 
-2. **Install Active Directory Tools**
-   - Use Server Manager to add the **AD DS** role and promote the server to a **Domain Controller**.
+**Objective:** Prepare the server identity and network foundation before promoting it to a Domain Controller.
+
+### Phase A: Identity & Networking
+- **Rename Hostname:** - Navigate to **Settings > System > About** and rename the PC to `SVR-DC-01`. (Reboot required).
+- **Static IP Assignment:**
+  - **IP Address:** `172.16.0.10`
+  - **Subnet Mask:** `255.255.255.0`
+  - **Preferred DNS:** `127.0.0.1` (Loopback)
+  - **Alternate DNS:** `8.8.8.8` (External fallback)
+
+### Phase B: Role Installation
+- **Install AD DS:** Use Server Manager to add the **Active Directory Domain Services** role.
+- **Promote Server:** Once installed, click the notification flag and select "Promote this server to a domain controller" to create your forest (e.g., `lab.local`).
+
+**Video Walkthrough:** [How to Rename and Set a Static IP - Windows Server 2025](https://www.youtube.com/watch?v=Ny8Ec4VAfIg)
 
 3. **Creating Organizational Units (OUs)**
    - **Objective:** Organize the domain environment using a structured design that separates users, groups, and devices.
@@ -53,6 +55,64 @@
        - **`IT_Admins`**
        - **`Finance`**
        - **`Human_Resources`**
+
+
+
+
+## 🛠️ Step-by-Step Lab Guide
+
+<details>
+<summary><h2>1. Initial Server Configuration (Windows Server 2025)</h2></summary>
+
+**Objective:** Prepare the server identity and network foundation before promoting it to a Domain Controller.
+
+### Phase A: Identity & Networking
+- **Rename Hostname:** Navigate to **Settings > System > About** and rename the PC to `SVR-DC-01`. (Reboot required).
+- **Static IP Assignment:**
+  - **IP Address:** `172.16.0.10`
+  - **Subnet Mask:** `255.255.255.0`
+  - **Preferred DNS:** `127.0.0.1` (Loopback)
+  - **Alternate DNS:** `8.8.8.8` (External fallback)
+
+### Phase B: Role Installation
+- **Install AD DS:** Use **Server Manager** to add the **Active Directory Domain Services** role.
+- **Promote Server:** Once installed, click the notification flag and select **"Promote this server to a domain controller"** to create your forest (e.g., `lab.local`).
+
+**Video Walkthrough:** [How to Rename and Set a Static IP - Windows Server 2025](https://www.youtube.com/watch?v=Ny8Ec4VAfIg)
+</details>
+
+<details>
+<summary><h2>2. Creating Organizational Units (OUs)</h2></summary>
+
+**Objective:** Organize the domain environment using a structured design that separates users, groups, and devices.
+
+- **Launch Management Tools:**
+  - Open **Active Directory Users and Computers (ADUC)** from the Tools menu.
+
+- **Create the Root Container:**
+  - Right-click your domain (e.g., `lab.local`) > **New > Organizational Unit**.
+  - Name it **`LAB_Assets`**.
+
+- **Establish Object-Based Tiers:**
+  - Right-click `LAB_Assets` and create three nested OUs:
+    - **`Accounts`** (For all users)
+    - **`Endpoints`** (For all hardware)
+    - **`Security_Groups`** (For permissions)
+
+- **Refine the Endpoint Hierarchy:**
+  - Inside **`Endpoints`**, create two nested OUs:
+    - **`Workstations`** (Target for Windows 11 GPOs)
+    - **`Servers`** (Target for server-specific GPOs)
+
+- **Departmental User Organization:**
+  - Inside **`Accounts`**, create nested OUs for:
+    - **`IT_Admins`**
+    - **`Finance`**
+    - **`Human_Resources`**
+</details>
+
+
+
 
 
 <details> 
