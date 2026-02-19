@@ -9,7 +9,7 @@
 </div>
 
 ## Hardware Requirements
-- **VMware Workstation Pro:** 1.2 GB Disk Space and 64-bit OS
+- **Oracle VirtualBox
 - **Windows Server 2025:** 4 GB Memory, 60 GB Disk Space
 - **Windows 11 Pro:** 4 GB Memory, 64 GB Disk Space (Minimum)
 
