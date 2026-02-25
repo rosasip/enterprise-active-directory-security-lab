@@ -92,8 +92,12 @@ Open **PowerShell** or **Command Prompt** and type:
 * **DNS Order:** Confirm `127.0.0.1` is the primary DNS server (critical for domain controller functionality).
 * **Persistence:** After configuration, reboot the server and verify settings remain.
 
-> [!IMPORTANT]
-> **Note:** Configure these network settings before promoting the server to a Domain Controller. Changing IP addresses or DNS settings after AD DS installation can cause authentication issues.
+> 💡 IMPORTANT 💡
+> **Note:** Configure these network settings before promoting the server to a Domain Controller. Changing IP addresses or DNS settings after AD DS installation can cause authentication issues. 
+
+
+### **Watch My Video Walkthrough Here:** 
+[![How to Rename and Set a Static IP - Windows Server 2025](https://img.youtube.com/vi/Ny8Ec4VAfIg/0.jpg)](https://www.youtube.com/watch?v=Ny8Ec4VAfIg)
 
 </details>
 
