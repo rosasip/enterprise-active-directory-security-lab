@@ -5,17 +5,29 @@
 </div>
 
 
+---
+## Lab Requirements
 
+### 1. Virtualization Host
+* **Software:** VMware Workstation Pro, Hyper-V, or VirtualBox
+* **Host OS:** 64-bit Operating System
+* **Host Disk Space:** 1.2 GB (for application installation)
 
+### 2. Virtual Lab Setup
+Utilize virtualization software to build and configure the following infrastructure:
 
+* **Windows Server 2025 (Domain Controller):**
+  * **Installation Media:** Windows Server 2025 ISO
+  * **Memory:** 2 GB
+  * **Disk Space:** 32 GB (Minimum)
+  * **Task:** Install and configure as a Domain Controller (Active Directory, GPO).
 
-
-
-
-
-
-
-
+* **Windows 11 Pro (Client Machines):**
+  * **Installation Media:** Windows 11 ISO (Select Pro during setup)
+  * **Memory:** 2 GB (Minimum)
+  * **Disk Space:** 20 GB (Minimum)
+  * **Task:** Install multiple client machines and join them to the domain.
+---
 
 
 <details>
