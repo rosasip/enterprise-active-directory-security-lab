@@ -7,6 +7,17 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 <details>
 <summary><h2>1. Configure Network settings for the Server (Windows Server 2025)</h2></summary>
 
