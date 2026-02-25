@@ -4,38 +4,7 @@
   <img width="1024" height="auto" alt="HomeLab Project Workflow" src="https://github.com/user-attachments/assets/6b920f71-ae8a-4901-9a12-bfc571f5aae4" />
 </div>
 
-## Step-by-Step Lab Guide
 
-### 1. Initial Server Configuration (Windows Server 2025)
-
-**Objective:** Prepare the server identity and network foundation before promoting it to a Domain Controller.
-
-### Phase A: Identity & Networking
-- **Rename Hostname:** Navigate to **Settings > System > About** and rename the PC to `SVR-DC-01`. (Reboot required).
-
-- **Static IP Assignment:**
-  - Open **Settings** > **Network & internet** > **Ethernet**.
-  - Click on your connected network and select **Edit** next to "IP assignment."
-  - Change the setting to **Manual**, toggle **IPv4** to **On**, and enter your details:
-    - **IP Address:** `172.16.0.10`
-    - **Subnet Mask:** `255.255.255.0`
-    - **Gateway:** `172.16.0.1`
- 
-- **DNS Server Hierarchy:**
-  - In the same menu, set **DNS server assignment** to **Manual**:
-    - **Preferred DNS:** `127.0.0.1` (Loopback)
-    - **Alternate DNS:** `8.8.8.8` (External fallback)
-
-- **Verification:**
-  - Open **PowerShell** or **Command Prompt** and run `ipconfig /all`.
-  - Confirm that **DHCP Enabled** is set to **No** and your DNS servers are correctly listed.
-
-### Phase B: Role Installation
-- **Install AD DS:** Use Server Manager to add the **Active Directory Domain Services** role.
-- **Promote Server:** Once installed, click the notification flag and select "Promote this server to a domain controller" to create your forest (e.g., `lab.local`).
-
-- **Video Walkthrough:**
-  - [How to Rename and Set a Static IP - Windows Server 2025](https://www.youtube.com/watch?v=Ny8Ec4VAfIg)
 
 
 <details>
