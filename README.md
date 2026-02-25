@@ -1,9 +1,8 @@
-### Active Directory, Networking, and File Sharing Lab Project
+### Enterprise Active Directory Security & Monitoring Lab (Windows Server 2025 | homelab.local)
 
 <div style="background: #f6f8fa; padding: 20px; border-radius: 6px; border: 1px solid #e1e4e8; max-width: 800px;">
-  <img width="1024" height="auto" alt="HomeLab Project Workflow" src="https://github.com/user-attachments/assets/6b920f71-ae8a-4901-9a12-bfc571f5aae4" />
+  <img width="1024" height="auto" lt="HOMELAB PROJECT WORKFLOW" src="https://github.com/user-attachments/assets/f79018d3-0355-4fde-836f-a69bab3c5f4b" />
 </div>
-
 
 ---
 ## Lab Requirements
