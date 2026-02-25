@@ -8,6 +8,78 @@
 
 
 <details>
+<summary><h2>1. Configure Network settings for the Server (Windows Server 2025)</h2></summary>
+
+### Objective
+Give your server a permanent IP address so domain clients can always find it.
+
+---
+
+### Method 1: Modern Settings App (Recommended)
+
+**Static IP Assignment:**
+1. Navigate to **Settings** > **Network & internet** > **Ethernet**
+2. Select your active network connection
+3. Click **Edit** next to "IP assignment"
+4. Change configuration to **Manual**
+5. Toggle **IPv4** to **On** and enter the following:
+
+| Field | Value |
+| :--- | :--- |
+| **IP Address** | `172.16.0.10` (or your preferred lab IP) |
+| **Subnet Mask** | `255.255.255.0` (/24 network) |
+| **Gateway** | Your lab router/gateway (e.g., `172.16.0.1`) |
+
+**DNS Server Configuration:**
+In the same IPv4 configuration panel, locate **DNS server assignment**. Set to **Manual** and configure:
+
+* **Preferred DNS:** `127.0.0.1` (Loopback address)
+    * *Rationale:* Directs the server to query its local Active Directory database first, essential for domain operations.
+* **Alternate DNS:** `8.8.8.8` (Google) or `1.1.1.1` (Cloudflare)
+    * *Rationale:* Provides external name resolution for Windows Updates, time synchronization, and other internet-dependent services if local DNS is unavailable.
+
+6. Click **Save** to apply the configuration.
+
+---
+
+### Method 2: Classic Control Panel (Alternative)
+
+1. Navigate to **Settings** > **Network & internet** > **Advanced network settings**
+2. Select **More network adapter options**
+3. Right-click your Ethernet adapter and choose **Properties**
+4. Select **Internet Protocol Version 4 (TCP/IPv4)** and click **Properties**
+5. Configure the static IP settings as specified above
+6. Click **OK** and **Close** to apply changes.
+
+---
+
+### Check your work:
+Open **PowerShell** or **Command Prompt** and type: 
+`ipconfig /all`
+
+**Make sure you see:**
+* **DHCP Enabled:** No
+* Your **IP address** is correct
+* Your **DNS servers** show `127.0.0.1` and your alternate
+
+---
+
+### Troubleshooting Tips:
+* **IP Conflict:** Ensure the IP you have chosen isn't already in use on your network.
+* **Gateway Connectivity:** Ping the gateway to verify layer-3 connectivity.
+* **DNS Order:** Confirm `127.0.0.1` is the primary DNS server (critical for domain controller functionality).
+* **Persistence:** After configuration, reboot the server and verify settings remain.
+
+> [!IMPORTANT]
+> **Note:** Configure these network settings before promoting the server to a Domain Controller. Changing IP addresses or DNS settings after AD DS installation can cause authentication issues.
+
+</details>
+
+
+
+
+
+<details>
 <summary><h2>2. Creating Organizational Units (OUs)</h2></summary>
 
 **Objective:** Organize the domain environment using a structured design that separates users, groups, and devices.
