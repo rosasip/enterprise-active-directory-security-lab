@@ -103,8 +103,6 @@ Open **PowerShell** or **Command Prompt** and type:
 
 
 
-
-
 <details>
 <summary><h2>2. Creating Organizational Units (OUs)</h2></summary>
 
@@ -227,7 +225,9 @@ Open **PowerShell** or **Command Prompt** and type:
    - On the Windows 11 login screen, select **Other User**.
    - Log in using the credentials created earlier (e.g., `mwright`).
    - Run `whoami /fqdn` in Command Prompt to confirm the user is recognized by the domain.
----
+
+### **Watch My Video Walkthrough Here:**
+[![How to Join a Windows 11 Client to a Domain](https://img.youtube.com/vi/eJ8Wjg97tuA/0.jpg)](https://www.youtube.com/watch?v=eJ8Wjg97tuA)
 
 </details>
 
