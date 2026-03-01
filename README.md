@@ -133,7 +133,12 @@ Open **PowerShell** or **Command Prompt** and type:
     - **`IT_Admins`**
     - **`Finance`**
     - **`Human_Resources`**
+
+### **Watch My Video Walkthrough Here:**
+[![Domain Controller & OU Creation](https://img.youtube.com/vi/V6TUqjmoZV8/0.jpg)](https://www.youtube.com/watch?v=V6TUqjmoZV8)
+
 </details>
+
 
 <details>
 <summary><h2>3. Creating User Accounts</h2></summary>
@@ -197,6 +202,9 @@ Open **PowerShell** or **Command Prompt** and type:
   - Click Add and type the name of the security group you created earlier (e.g., SG-Finance-Read-Only).
   - Click Check Names to validate the object, then click OK.
 - Verify the membership (Security Best Practice: Always assign permissions to Groups, not individual Users.)
+
+### **Watch My Video Walkthrough Here:**
+[![Active Directory: Create Users, Groups & Manage Membership](https://img.youtube.com/vi/ELgmJWc4J8s/0.jpg)](https://www.youtube.com/watch?v=ELgmJWc4J8s)
 </details>
 
 <details>
@@ -219,6 +227,8 @@ Open **PowerShell** or **Command Prompt** and type:
    - On the Windows 11 login screen, select **Other User**.
    - Log in using the credentials created earlier (e.g., `mwright`).
    - Run `whoami /fqdn` in Command Prompt to confirm the user is recognized by the domain.
+---
+
 </details>
 
 <details>
