@@ -86,14 +86,30 @@ Common types:
 
 
 > If SSH is installed: It returns a path ending in .exe, if NOT installed: It returns nothing or an error message.
-
-
-
-
-
 </details>
 
 
+<details>
+<summary><h3>4. Install OpenSSH Server (Windows)</h3></summary>
+
+> For SSH to work, you need two components:
+
+- **SSH Client:** Installed on your computer (lets you connect out to others)
+- **SSH Server:** Installed on the computer you want to connect into (lets others connect to you)
+
+### First, check what's already installed
+
+Run this command in PowerShell:
+
+```Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'```
+
+What this command does:
+
+```Get-WindowsCapability```: Asks Windows what optional features are available
+
+```-Online```: Checks your current Windows installation
+
+```Where-Object Name -like 'OpenSSH*'```: Filters to show only OpenSSH-related items
 
 
 
