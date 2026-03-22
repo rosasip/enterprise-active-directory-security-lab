@@ -1,123 +1,389 @@
-# For Absolute Beginners
-> From zero to connecting to remote servers - a step-by-step journey
+### Enterprise Active Directory Security & Monitoring Lab (Windows Server 2025 | homelab.local)
 
+<div style="background: #f6f8fa; padding: 20px; border-radius: 6px; border: 1px solid #e1e4e8; max-width: 800px;">
+  <img width="1024" height="auto" lt="HOMELAB PROJECT WORKFLOW" src="https://github.com/user-attachments/assets/f79018d3-0355-4fde-836f-a69bab3c5f4b" />
+</div>
 
-## 📋 Prerequisites: What You Need
-Before we start, let's understand what we're working with to ensure a smooth setup:
+---
+## Lab Requirements
 
- **💻 Two Computers** (or a computer and a virtual machine)
-   - **Client:** Your main computer (where you'll type commands)
-   - **Server:** The computer you want to connect to (could be a VM on your same machine)
+### 1. Virtualization Host
+* **Software:** VMware Workstation Pro, Hyper-V, or VirtualBox
+* **Host OS:** 64-bit Operating System
+* **Host Disk Space:** 1.2 GB (for application installation)
 
-**🌐 Network Connectivity**
-   The two computers need to be able to reach each other (on the same network, or with a proper internet setup).
+### 2. Virtual Lab Setup
+Utilize virtualization software to build and configure the following infrastructure:
 
-**🔑 Administrator Access**
-   To install software or change system settings, you'll need admin/sudo privileges.
+* **Windows Server 2025 (Domain Controller):**
+  * **Installation Media:** Windows Server 2025 ISO
+  * **Memory:** 2 GB
+  * **Disk Space:** 32 GB (Minimum)
+  * **Task:** Install and configure as a Domain Controller (Active Directory, GPO).
 
+* **Windows 11 Pro (Client Machines):**
+  * **Installation Media:** Windows 11 ISO (Select Pro during setup)
+  * **Memory:** 2 GB (Minimum)
+  * **Disk Space:** 20 GB (Minimum)
+  * **Task:** Install multiple client machines and join them to the domain.
 ---
 
 
-
-
-
 <details>
-<summary><h3>1. What is SSH?</h2></summary>
-<br>
+<summary><h2>1. Configure Network settings for the Server (Windows Server 2025)</h2></summary>
 
-> SSH (Secure Shell) is a cryptographic network protocol that enables secure communication between two systems. Think of it as a **secure pipe** that allows you to send data or commands over an unsecured network (like the internet).
+### Objective
+Give your server a permanent IP address so domain clients can always find it.
 
-### Why do we need it?
 ---
-> **Remote Management:**
-> Log into a server's terminal from your own laptop as if you were sitting right in front of it.
->
-> **Git operations:**
-> Securely push code to GitHub, GitLab, or other repositories.
->
-> **File Transfers:**
-> Move files safely using SFTP or SCP.
->
-> **Tunneling:**
-> Create secure bridges for web traffic (more advanced).
 
-### How it Works?
+### Method 1: Modern Settings App (Recommended)
+
+**Static IP Assignment:**
+1. Navigate to **Settings** > **Network & internet** > **Ethernet**
+2. Select your active network connection
+3. Click **Edit** next to "IP assignment"
+4. Change configuration to **Manual**
+5. Toggle **IPv4** to **On** and enter the following:
+
+| Field | Value |
+| :--- | :--- |
+| **IP Address** | `172.16.0.10` (or your preferred lab IP) |
+| **Subnet Mask** | `255.255.255.0` (/24 network) |
+| **Gateway** | Your lab router/gateway (e.g., `172.16.0.1`) |
+
+**DNS Server Configuration:**
+In the same IPv4 configuration panel, locate **DNS server assignment**. Set to **Manual** and configure:
+
+* **Preferred DNS:** `127.0.0.1` (Loopback address)
+    * *Rationale:* Directs the server to query its local Active Directory database first, essential for domain operations.
+* **Alternate DNS:** `8.8.8.8` (Google) or `1.1.1.1` (Cloudflare)
+    * *Rationale:* Provides external name resolution for Windows Updates, time synchronization, and other internet-dependent services if local DNS is unavailable.
+
+6. Click **Save** to apply the configuration.
+
 ---
-1. **Your Computer** = The Client (you initiate the connection)
-2. **The Remote Server** = The Host (the computer you're connecting to)
-3. **The Connection** = Encrypted tunnel that keeps everything private
-</details>
 
-<details>
-<summary><h3>2. What is a Shell?</h3></summary>
+### Method 2: Classic Control Panel (Alternative)
 
->To use SSH effectively, you need to understand what a **shell** is. A shell is simply a program that takes commands from your keyboard and gives them to the operating system to perform.
+1. Navigate to **Settings** > **Network & internet** > **Advanced network settings**
+2. Select **More network adapter options**
+3. Right-click your Ethernet adapter and choose **Properties**
+4. Select **Internet Protocol Version 4 (TCP/IPv4)** and click **Properties**
+5. Configure the static IP settings as specified above
+6. Click **OK** and **Close** to apply changes.
 
-### Two Types of Shells
+---
 
-#### 1. ``Command Line Shell (CLI)``: A text-based interface where you type commands. You're using this right now!
+### Check your work:
+Open **PowerShell** or **Command Prompt** and type: 
+`ipconfig /all`
 
-Common types:
-- **Bash (Bourne Again Shell):** Most common on Linux and older macOS
-- **Zsh (Z Shell):** Current default on macOS; highly customizable
-- **PowerShell:** The modern standard for Windows administration
-- **Sh (Bourne Shell):** The "grandfather" of shells; simple and present on almost all Unix systems
+**Make sure you see:**
+* **DHCP Enabled:** No
+* Your **IP address** is correct
+* Your **DNS servers** show `127.0.0.1` and your alternate
 
-#### 2. ``Graphical Shell (GUI)``: A visual interface with windows, icons, and menus:
-- **Windows Explorer:** The shell you use to browse folders in Windows
-- **GNOME / KDE:** Popular graphical shells for Linux desktops
-- **macOS Finder:** The graphical shell on Mac
+---
 
-> ⚠️ **Important:** When you use SSH, you're getting access to the remote computer's **command line shell**, not its graphical interface.
-</details>
+### Troubleshooting Tips:
+* **IP Conflict:** Ensure the IP you have chosen isn't already in use on your network.
+* **Gateway Connectivity:** Ping the gateway to verify layer-3 connectivity.
+* **DNS Order:** Confirm `127.0.0.1` is the primary DNS server (critical for domain controller functionality).
+* **Persistence:** After configuration, reboot the server and verify settings remain.
 
-
-
-<details>
-<summary><h3>3: Check if SSH is Installed</h3></summary>
-
-> Before we install anything, let's see if SSH is already on your system.
-
-#### For Windows (PowerShell or Command Prompt):
-`` where ssh``
-#### For macOS/Linux (Terminal): 
-```which ssh```
-> When you run where ssh or which ssh, you're looking for the SSH Client - the program that lets you initiate connections. This is the first piece we need.
+> 💡 IMPORTANT 💡
+> **Note:** Configure these network settings before promoting the server to a Domain Controller. Changing IP addresses or DNS settings after AD DS installation can cause authentication issues. 
 
 
-> If SSH is installed: It returns a path ending in .exe, if NOT installed: It returns nothing or an error message.
+### **Watch My Video Walkthrough Here:** 
+[![How to Rename and Set a Static IP - Windows Server 2025](https://img.youtube.com/vi/Ny8Ec4VAfIg/0.jpg)](https://www.youtube.com/watch?v=Ny8Ec4VAfIg)
+
 </details>
 
 
+
 <details>
-<summary><h3>4. Install OpenSSH Server (Windows)</h3></summary>
+<summary><h2>2. Creating Organizational Units (OUs)</h2></summary>
 
-> For SSH to work, you need two components:
+**Objective:** Organize the domain environment using a structured design that separates users, groups, and devices.
 
-- **SSH Client:** Installed on your computer (lets you connect out to others)
-- **SSH Server:** Installed on the computer you want to connect into (lets others connect to you)
+- **Launch Management Tools:**
+  - Open **Active Directory Users and Computers (ADUC)** from the Tools menu.
 
-### First, check what's already installed
+- **Create the Root Container:**
+  - Right-click your domain (e.g., `lab.local`) > **New > Organizational Unit**.
+  - Name it **`LAB_Assets`**.
 
-Run this command in PowerShell:
+- **Establish Object-Based Tiers:**
+  - Right-click `LAB_Assets` and create three nested OUs:
+    - **`Accounts`** (For all users)
+    - **`Endpoints`** (For all hardware)
+    - **`Security_Groups`** (For permissions)
 
-```Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'```
+- **Refine the Endpoint Hierarchy:**
+  - Inside **`Endpoints`**, create two nested OUs:
+    - **`Workstations`** (Target for Windows 11 GPOs)
+    - **`Servers`** (Target for server-specific GPOs)
 
-What this command does:
+- **Departmental User Organization:**
+  - Inside **`Accounts`**, create nested OUs for:
+    - **`IT_Admins`**
+    - **`Finance`**
+    - **`Human_Resources`**
 
-```Get-WindowsCapability```: Asks Windows what optional features are available
+### **Watch My Video Walkthrough Here:**
+[![Domain Controller & OU Creation](https://img.youtube.com/vi/V6TUqjmoZV8/0.jpg)](https://www.youtube.com/watch?v=V6TUqjmoZV8)
 
-```-Online```: Checks your current Windows installation
-
-```Where-Object Name -like 'OpenSSH*'```: Filters to show only OpenSSH-related items
-
-
-
-
-
-
-
-
+</details>
 
 
+<details>
+<summary><h2>3. Creating User Accounts</h2></summary>
 
+**Objective:** Provision domain user accounts with standardized naming conventions and attributes.
+
+- **Locate the Target Container:**
+  - Select your **`LAB_Assets > Accounts`** OU.
+  - Select the specific department (e.g., **`IT_Admins`** or **`Finance`**).
+
+- **Provision a New User:**
+  - Right-click the departmental OU and select **New > User**.
+
+- **Define Identity Attributes:**
+  - Follow a standard naming convention for the User Logon Name (e.g., First Initial + Last Name).
+  - **Example:**
+    - First Name: Marcus
+    - Last Name: Wright
+    - User Logon Name: `mwright`
+
+- **Security & Password Configuration:**
+  - Assign a temporary password that meets the domain's complexity requirements.
+  - **Settings:** Select **"User must change password at next logon"** (best practice) or **"Password never expires"** (common for lab service accounts).
+
+- **Assign Professional Metadata:**
+  - Once the user is created, right-click the account and select **Properties**.
+  - In the **Description** field, add their specific role (e.g., Senior Systems Engineer).
+  - Under the **Organization** tab, fill in the **Job Title** and **Department**.
+
+> 💡 **Professional Note:** In a production environment, SysAdmins rarely create users manually. This process is typically automated using PowerShell scripts or Identity Management (IdM) systems to sync users from an HR database via a CSV file.
+</details>
+
+<details>
+<summary><h2>4. Creating Groups</h2></summary>
+
+**Objective:** Security & Distribution Group Management
+
+- Navigate to the Security Groups OU:
+  - In ADUC, go to your LAB_Assets > Security_Groups container. (Centralizing groups here makes auditing much easier).
+- Initialize a New Group:
+  - Right-click inside the OU and select New > Group.  
+- Standardized Group Naming:
+  - Use a prefix to identify the group's purpose (e.g., SG for Security Group or DL for Distribution List). Example Name: SG-Finance-Read-Only or SG-IT-Admins. 
+- Configure Group Scope and Type:
+  - Group Scope: Select Global. (This is the standard for most departmental groups within a single domain).
+  - Group Type: Select Security. (Note: Security groups are used for permissions (folders, printers), while Distribution groups are strictly for email lists.)
+- Assign Membership:
+  - Right-click your new group, go to Properties > Members, and add the user accounts you created in the previous exercise.  
+</details>
+
+<details>
+<summary><h2>5. Adding Users to Groups</h2></summary>
+
+**Objective:** Delegate permissions by nesting user accounts into functional security groups.
+   
+- Access User Identity Properties:
+  - In ADUC, locate the user account you want to manage (e.g., in the Accounts > Finance OU).
+  - Right-click the user and select Properties.
+- Assign Group Affiliation:
+  - Navigate to the Member Of tab.
+  - Click Add and type the name of the security group you created earlier (e.g., SG-Finance-Read-Only).
+  - Click Check Names to validate the object, then click OK.
+- Verify the membership (Security Best Practice: Always assign permissions to Groups, not individual Users.)
+
+### **Watch My Video Walkthrough Here:**
+[![Active Directory: Create Users, Groups & Manage Membership](https://img.youtube.com/vi/ELgmJWc4J8s/0.jpg)](https://www.youtube.com/watch?v=ELgmJWc4J8s)
+</details>
+
+<details>
+<summary><h2>6. Join Windows Client to the Domain</h2></summary>
+
+**Objective:** Connect the Windows 11 workstation to the Active Directory environment and verify user authentication.
+
+1. **Configure Client Network Settings:**
+   - Open **Network Connections** on the Windows 11 machine.
+   - Set the **Preferred DNS Server** to the IP address of your Domain Controller (e.g., `172.16.0.10`).
+   - Set the **Alternate DNS Server** to `8.8.8.8` (Google DNS).
+
+2. **Domain Join & OU Migration:**
+   - Go to **Settings > System > About > Advanced System Settings > Computer Name**.
+   - Click **Change**, select **Domain**, and enter your domain name (e.g., `lab.local`).
+   - Authenticate with Domain Admin credentials and restart.
+   - **Crucial Step:** On the Domain Controller, open **ADUC** and move the new computer object from the default `Computers` container into **`LAB_Assets > Endpoints > Workstations`**.
+
+3. **Verify Domain Login:**
+   - On the Windows 11 login screen, select **Other User**.
+   - Log in using the credentials created earlier (e.g., `mwright`).
+   - Run `whoami /fqdn` in Command Prompt to confirm the user is recognized by the domain.
+
+### **Watch My Video Walkthrough Here:**
+[![How to Join a Windows 11 Client to a Domain](https://img.youtube.com/vi/eJ8Wjg97tuA/0.jpg)](https://www.youtube.com/watch?v=eJ8Wjg97tuA)
+
+</details>
+
+<details>
+<summary><h2>7. Creating and Linking Group Policy Objects (GPOs)</h2></summary>
+
+**Objective:** Implement centralized management by creating and enforcing policies across the domain.
+
+1. **Launch Group Policy Management:**
+   - Open the **Group Policy Management Console (GPMC)** from the Server Manager Tools menu.
+
+2. **Create a New GPO:**
+   - Navigate to **`Forest > Domains > [Your Domain]`**.
+   - Right-click **Group Policy Objects** and select **New**.
+   - Name the GPO based on its function (e.g., `GPO_Disable_USB` or `GPO_Wallpaper_Standard`).
+
+3. **Configure Policy Settings:**
+   - Right-click your new GPO and select **Edit**.
+   - **Example - Restrict Control Panel:** - *User Configuration > Policies > Administrative Templates > Control Panel > Prohibit access to Control Panel.*
+   - **Example - Wallpaper:** - *User Configuration > Policies > Administrative Templates > Desktop > Desktop > Desktop Wallpaper.*
+
+4. **Link the GPO to an OU:**
+   - Right-click the specific OU where you want the policy to apply (e.g., `LAB_Assets > Accounts > Finance`).
+   - Select **Link an Existing GPO** and choose your policy.
+  
+<!-- The type of each folder is different. The main difference between a container and a Organisational Unit is that in the container type Group Policies cannot be applied, in the Organisational Unit type of folder you can apply group policies.-->
+
+5. **Enforce the Policy:**
+   - On the Windows 11 client, open Command Prompt and run `gpupdate /force` to apply the changes immediately without rebooting.
+</details>
+
+<details>
+<summary><h2>8. Configuring File Sharing and NTFS Permissions</h2></summary>
+
+**Objective:** Set up a secure, department-specific network share using the Principle of Least Privilege.
+
+1. **Initialize the Shared Directory:**
+   - On the Server's `C:` drive, create a folder named **`Company_Data`**.
+   - Inside that folder, create a sub-folder named **`Finance_Private`**.
+
+2. **Configure Advanced Sharing (Share Permissions):**
+   - Right-click `Company_Data` > **Properties > Sharing > Advanced Sharing**.
+   - Check **"Share this folder"** and name it `Data$`. (The `$` makes it a "hidden" share).
+   - Click **Permissions**: Set **`Everyone`** to **`Read/Write`**. 
+   - *Note: We manage the actual restrictions in the next step via NTFS.*
+
+3. **Configure NTFS Permissions (Security Tab):**
+   - Go to the **Security** tab > **Advanced**.
+   - **Disable Inheritance** and convert existing permissions to explicit permissions.
+   - Remove the `Users` group.
+   - Add your security group (e.g., **`SG-Finance-Read-Only`**) and assign **`Read & Execute`** permissions.
+
+4. **Verify Access from Client:**
+   - On the Windows 11 machine, press `Win + R` and type `\\<Server-IP>\Data$`.
+   - Confirm that users in the Finance group can see the files, while users from other departments (like HR) are denied access.
+</details>
+
+<details>
+<summary><h2>9. Map Network Drives via Group Policy</h2></summary>
+
+**Objective:** Automatically mount network shares as drive letters for users when they log in.
+
+1. **Initialize the Drive Mapping GPO:**
+   - In the **GPMC**, create a new GPO named **`GPO_Map_Finance_Drive`**.
+
+2. **Configure Drive Mapping Preferences:**
+   - Right-click the GPO and select **Edit**.
+   - Navigate to: **User Configuration > Preferences > Windows Settings > Drive Maps**.
+   - Right-click > **New > Mapped Drive**.
+   - **Action:** Select `Update`.
+   - **Location:** Enter the path to your share (e.g., `\\SVR-DC-01\Data$`).
+   - **Label as:** Enter a friendly name (e.g., `Finance Department`).
+   - **Drive Letter:** Assign a specific letter (e.g., `F:`).
+
+3. **Targeting & Linking:**
+   - **Link** the GPO to the **`LAB_Assets > Accounts > Finance`** OU.
+   - *Note: By linking here, only the Finance users will see this drive, keeping the workspace clean for other departments.*
+
+4. **Verify on Client:**
+   - On the Windows 11 machine, log in as a Finance user.
+   - Open **File Explorer > This PC**.
+   - Confirm the `F:` drive appears automatically. 
+   - If it doesn't appear, run `gpupdate /force` and log out/in.
+</details>
+
+<details>
+<summary><h2>10. Creating & Configuring Service Accounts</h2></summary>
+
+**Objective:** Provision a dedicated account for automated system processes or kiosk environments.
+
+1. **Locate the Service Account Container:**
+   - In **ADUC**, navigate to your **`LAB_Assets > Accounts`** OU.
+   - (Optional) Create a specific sub-OU named **`Service_Accounts`** to keep these separate from human users.
+
+2. **Provision the Account:**
+   - Right-click the OU > **New > User**.
+   - **Name:** Use a prefix to identify it as a service (e.g., `SVC_AutoLogin`).
+   - **Description:** Clearly state the purpose (e.g., `Account for Warehouse Kiosk Autologon`).
+
+3. **Security Hardening:**
+   - Assign a high-entropy (strong) password.
+   - **Settings:** Check **"User cannot change password"** and **"Password never expires"**.
+   - *Note: In a production environment, you would eventually move to Managed Service Accounts (gMSAs) for even better security.*
+
+4. **Assign Permissions:**
+   - Add the account to any specific **Security Groups** required for the task it performs. 
+   - Ensure it has the "Log on as a service" or "Log on locally" right if required by the application.
+
+5. **Configure Client Autologon (Sysinternals):**
+   - On the target Windows 11 client, download the **Microsoft Sysinternals Autologon** tool.
+   - Run `Autologon.exe`, enter the `SVC_AutoLogin` credentials, and the domain name.
+   - This encrypts the credentials in the registry, allowing the machine to bypass the login screen and go straight to the desktop after a reboot—ideal for dashboard monitors or kiosks.
+</details>
+
+<details>
+<summary><h2>11. Configuring Account Lockout Policy</h2></summary>
+
+**Objective:** Mitigate brute-force and dictionary attacks by automatically disabling accounts after multiple failed login attempts.
+
+1. **Initialize the Security GPO:**
+   - In the **GPMC**, create a new GPO named **`GPO_Account_Security_Policy`**.
+
+2. **Configure Lockout Thresholds:**
+   - Navigate to: **Computer Configuration > Policies > Windows Settings > Security Settings > Account Policies > Account Lockout Policy**.
+   - **Account lockout threshold:** Set to `5` invalid attempts. (This is a balance between security and user convenience).
+   - **Account lockout duration:** Set to `30 minutes`.
+   - **Reset account lockout counter after:** Set to `30 minutes`.
+
+3. **Linking & Inheritance:**
+   - **Important:** Account policies like these are typically linked at the **Domain Level** (the very top folder) because they are handled by the Domain Controller's security database. 
+
+4. **Testing the Policy:**
+   - On the Windows 11 client, attempt to log in with a valid username but a **wrong password** 5 times.
+   - Verify that the 6th attempt results in an "Account Locked" message.
+   - On the Server, open **ADUC**, find the user, and observe the "Unlock Account" checkbox in their properties.
+</details>
+
+<details>
+<summary><h2>Testing & Verification</h2></summary>
+
+**Objective:** Confirm that all configurations—Identity, Networking, and Policy—are functioning as intended.
+
+1. **Verify User Authentication:**
+   - Log on to a Windows 11 client machine using a newly created domain account (e.g., `mwright`).
+   - **Success Criteria:** The user profile is created successfully, and the desktop loads without "Temporary Profile" errors.
+
+2. **Audit Group Policy & Membership:**
+   - Open **Command Prompt** (as the user) and run: `gpresult /r`
+   - **Success Criteria:** - Under "Applied Group Policy Objects," you should see your custom GPOs (e.g., `GPO_Account_Security_Policy`).
+     - Under "The user is a part of the following security groups," you should see your `SG-` groups.
+
+3. **Validate Network Resource Access:**
+   - Open **File Explorer > This PC**.
+   - **Success Criteria:** The mapped network drive (e.g., `F:`) appears with the correct label. Double-click it to ensure you can create/read files based on your NTFS permissions.
+
+4. **Verify Account Lockout Logic:**
+   - Intentional Failure: Attempt to log in with a wrong password 5 times.
+   - **Success Criteria:** The 6th attempt should trigger a message stating the account is locked. Confirm you can unlock the user from the Domain Controller.
+</details>
