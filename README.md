@@ -1,5 +1,25 @@
-## For Absolute Beginners
+# For Absolute Beginners
 > From zero to connecting to remote servers - a step-by-step journey
+
+
+## 📋 Prerequisites: What You Need
+Before we start, let's understand what we're working with to ensure a smooth setup:
+
+1. **💻 Two Computers** (or a computer and a virtual machine)
+   - **Client:** Your main computer (where you'll type commands)
+   - **Server:** The computer you want to connect to (could be a VM on your same machine)
+
+2. **🌐 Network Connectivity**
+   The two computers need to be able to reach each other (on the same network, or with a proper internet setup).
+
+3. **🔑 Administrator Access**
+   To install software or change system settings, you'll need admin/sudo privileges.
+
+---
+
+
+
+
 
 <details>
 <summary><h3>What is SSH?</h2></summary>
