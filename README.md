@@ -73,6 +73,35 @@ Common types:
 
 
 
+<details>
+<summary><h3>3: Check if SSH is Installed</h3></summary>
+
+> Before we install anything, let's see if SSH is already on your system.
+
+#### For Windows (PowerShell or Command Prompt):
+   > where ssh
+
+#### What this does:
+
+```where``` is a command that searches for programs.
+```ssh``` is what we're looking for.
+
+
+
+
+
+
+</details>
+
+
+
+
+
+
+
+
+
+
 
 
 
