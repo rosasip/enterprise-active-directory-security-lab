@@ -49,5 +49,10 @@ Common types:
 - **macOS Finder:** The graphical shell on Mac
 
 > ⚠️ **Important:** When you use SSH, you're getting access to the remote computer's **command line shell**, not its graphical interface.
-
 </details>
+
+
+
+
+
+
