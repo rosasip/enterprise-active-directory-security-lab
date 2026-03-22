@@ -5,14 +5,14 @@
 ## 📋 Prerequisites: What You Need
 Before we start, let's understand what we're working with to ensure a smooth setup:
 
-1. **💻 Two Computers** (or a computer and a virtual machine)
+ **💻 Two Computers** (or a computer and a virtual machine)
    - **Client:** Your main computer (where you'll type commands)
    - **Server:** The computer you want to connect to (could be a VM on your same machine)
 
-2. **🌐 Network Connectivity**
+**🌐 Network Connectivity**
    The two computers need to be able to reach each other (on the same network, or with a proper internet setup).
 
-3. **🔑 Administrator Access**
+**🔑 Administrator Access**
    To install software or change system settings, you'll need admin/sudo privileges.
 
 ---
@@ -22,7 +22,7 @@ Before we start, let's understand what we're working with to ensure a smooth set
 
 
 <details>
-<summary><h3>What is SSH?</h2></summary>
+<summary><h3>1. What is SSH?</h2></summary>
 <br>
 
 > SSH (Secure Shell) is a cryptographic network protocol that enables secure communication between two systems. Think of it as a **secure pipe** that allows you to send data or commands over an unsecured network (like the internet).
@@ -49,9 +49,9 @@ Before we start, let's understand what we're working with to ensure a smooth set
 </details>
 
 <details>
-<summary><h3>What is a Shell?</h3></summary>
+<summary><h3>2. What is a Shell?</h3></summary>
 
-To use SSH effectively, you need to understand what a **shell** is. A shell is simply a program that takes commands from your keyboard and gives them to the operating system to perform.
+>To use SSH effectively, you need to understand what a **shell** is. A shell is simply a program that takes commands from your keyboard and gives them to the operating system to perform.
 
 ### Two Types of Shells
 
