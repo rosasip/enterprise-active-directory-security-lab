@@ -26,6 +26,28 @@
 1. **Your Computer** = The Client (you initiate the connection)
 2. **The Remote Server** = The Host (the computer you're connecting to)
 3. **The Connection** = Encrypted tunnel that keeps everything private
+</details>
 
-<br>
+<details>
+<summary><h3>What is a Shell?</h3></summary>
+
+To use SSH effectively, you need to understand what a **shell** is. A shell is simply a program that takes commands from your keyboard and gives them to the operating system to perform.
+
+### Two Types of Shells
+
+#### 1. Command Line Shell (CLI): A text-based interface where you type commands. You're using this right now!
+
+Common types:
+- **Bash (Bourne Again Shell):** Most common on Linux and older macOS
+- **Zsh (Z Shell):** Current default on macOS; highly customizable
+- **PowerShell:** The modern standard for Windows administration
+- **Sh (Bourne Shell):** The "grandfather" of shells; simple and present on almost all Unix systems
+
+#### 2. Graphical Shell (GUI): A visual interface with windows, icons, and menus:
+- **Windows Explorer:** The shell you use to browse folders in Windows
+- **GNOME / KDE:** Popular graphical shells for Linux desktops
+- **macOS Finder:** The graphical shell on Mac
+
+> ⚠️ **Important:** When you use SSH, you're getting access to the remote computer's **command line shell**, not its graphical interface.
+
 </details>
