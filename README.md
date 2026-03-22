@@ -79,13 +79,13 @@ Common types:
 > Before we install anything, let's see if SSH is already on your system.
 
 #### For Windows (PowerShell or Command Prompt):
-   > where ssh
+`` where ssh``
+#### For macOS/Linux (Terminal): 
+```which ssh```
+> When you run where ssh or which ssh, you're looking for the SSH Client - the program that lets you initiate connections. This is the first piece we need.
 
-#### What this does:
 
-```where``` is a command that searches for programs.
-```ssh``` is what we're looking for.
-
+> If SSH is installed: It returns a path ending in .exe, if NOT installed: It returns nothing or an error message.
 
 
 
