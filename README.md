@@ -55,7 +55,7 @@ Before we start, let's understand what we're working with to ensure a smooth set
 
 ### Two Types of Shells
 
-#### 1. Command Line Shell (CLI): A text-based interface where you type commands. You're using this right now!
+#### 1. ``Command Line Shell (CLI)``: A text-based interface where you type commands. You're using this right now!
 
 Common types:
 - **Bash (Bourne Again Shell):** Most common on Linux and older macOS
@@ -63,7 +63,7 @@ Common types:
 - **PowerShell:** The modern standard for Windows administration
 - **Sh (Bourne Shell):** The "grandfather" of shells; simple and present on almost all Unix systems
 
-#### 2. Graphical Shell (GUI): A visual interface with windows, icons, and menus:
+#### 2. ``Graphical Shell (GUI)``: A visual interface with windows, icons, and menus:
 - **Windows Explorer:** The shell you use to browse folders in Windows
 - **GNOME / KDE:** Popular graphical shells for Linux desktops
 - **macOS Finder:** The graphical shell on Mac
